@@ -1,10 +1,13 @@
 const path = require('path');
 
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
 const common = require('./webpack.common');
+
+const outputPath = path.resolve(__dirname, '../dist');
 
 module.exports = merge(common, {
   entry: [
@@ -14,9 +17,9 @@ module.exports = merge(common, {
   debug: false,
   devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/_assets/',
-    filename: 'app.js',
+    path: outputPath,
+    publicPath: '/',
+    filename: 'app.[hash].js',
   },
   module: {
     loaders: [
@@ -39,15 +42,13 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
-    // Important to keep React file size down
     new webpack.DefinePlugin({
-      __API_URL__: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa/v1'),
-      __DEVTOOLS__: false,
-      __TRACKING__: Boolean(process.env.PIWIK_SITE_ID),
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      SETTINGS: {
+        API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/servicemap/v1/'),
       },
     }),
+    new CleanWebpackPlugin([outputPath], { root: path.resolve(__dirname, '..') }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -56,6 +57,6 @@ module.exports = merge(common, {
         warnings: false,
       },
     }),
-    new ExtractTextPlugin('app.css'),
+    new ExtractTextPlugin('app.[hash].css'),
   ],
 });
