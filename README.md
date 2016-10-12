@@ -1,6 +1,8 @@
 asomap
 ======
 
+[![Circle CI](https://circleci.com/gh/fastmonkeys/asomap.svg?style=svg)](https://circleci.com/gh/fastmonkeys/asomap)
+
 Requirements
 ------------
 
