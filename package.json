@@ -74,6 +74,7 @@
     "karma-webpack": "1.8.0",
     "mocha": "3.1.2",
     "react-addons-test-utils": "15.3.2",
+    "redux-freeze-state": "1.0.0",
     "redux-logger": "2.7.0",
     "simple-mock": "0.7.0"
   },

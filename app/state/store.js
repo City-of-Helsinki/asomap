@@ -1,13 +1,21 @@
 /* eslint-disable global-require */
+
 import { compose, createStore } from 'redux';
 
 import middleware from './middleware';
 import rootReducer from './reducers';
 
-const finalCreateStore = compose(...middleware)(createStore);
+const createStoreWithMiddleware = compose(...middleware)(createStore);
 
 function configureStore(initialState) {
-  const store = finalCreateStore(rootReducer, initialState);
+  let store;
+  if (process.env.NODE_ENV === 'development') {
+    const freezeState = require('redux-freeze-state');
+
+    store = createStoreWithMiddleware(freezeState(rootReducer), initialState);
+  } else {
+    store = createStoreWithMiddleware(rootReducer, initialState);
+  }
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
