@@ -7,6 +7,8 @@ import { AppContainer } from 'react-hot-loader';
 import App from 'screens/App';
 import store from 'state/store';
 
+import 'assets/styles/app.less';
+
 const rootEl = document.getElementById('root');
 
 ReactDom.render(

@@ -7,7 +7,7 @@ import selector from './sidebarSelector';
 function UnconnectedSidebarContainer({ changeMessage, message }) {
   return (
     <div className="sidebar">
-      <p>You have 1 message:</p>
+      <h4>You have 1 message:</h4>
       <p>{message}</p>
       <button onClick={changeMessage} >
         Change messega
