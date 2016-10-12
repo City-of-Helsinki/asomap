@@ -1,23 +1,18 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { Provider } from 'react-redux';
 
-import SidebarContainer from 'screens/sidebar/SidebarContainer';
+import Sidebar from 'screens/sidebar';
 
-function App({ store }) {
+function App() {
   return (
-    <Provider store={store}>
-      <div className="app">
-        <DocumentTitle title="Asumisoikeusasuntojen karttapalvelu" />
-        <h1>Hello World!</h1>
-        <SidebarContainer />
-      </div>
-    </Provider>
+    <div className="app">
+      <DocumentTitle title="Asumisoikeusasuntojen karttapalvelu" />
+      <h1>Hello World!</h1>
+      <Sidebar />
+    </div>
   );
 }
 
-App.propTypes = {
-  store: PropTypes.object.isRequired, // eslint-disable-line
-};
+App.propTypes = {};
 
 export default App;
