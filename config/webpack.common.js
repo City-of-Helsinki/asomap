@@ -2,6 +2,7 @@ const path = require('path');
 
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   module: {
@@ -39,6 +40,9 @@ module.exports = {
     modulesDirectories: ['node_modules', 'app'],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+    }),
     new HtmlWebpackPlugin({
       favicon: path.resolve(__dirname, '../app/assets/images/favicon.ico'),
       template: path.resolve(__dirname, '../app/index.template.html'),
