@@ -1,4 +1,4 @@
-import actionTypes from 'actions/ActionTypes';
+import actionTypes from 'actions/actionTypes';
 
 const initialState = {
   message: 'Message from reducer!!!',
