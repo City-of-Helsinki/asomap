@@ -13,6 +13,9 @@
   "buildpacks": [
     {
       "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/jpvanhal/nginx-buildpack.git#no-app-server"
     }
   ]
 }
