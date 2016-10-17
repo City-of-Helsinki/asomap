@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 
-import App from 'screens/App';
+import App from 'screens/AppContainer';
 import store from 'state/store';
 
 import 'assets/styles/app.less';
@@ -20,8 +20,8 @@ ReactDom.render(
 );
 
 if (module.hot) {
-  module.hot.accept('screens/App', () => {
-    const NextApp = require('screens/App').default; // eslint-disable-line global-require
+  module.hot.accept('screens/AppContainer', () => {
+    const NextApp = require('screens/AppContainer').default; // eslint-disable-line global-require
 
     ReactDom.render(
       <AppContainer>
