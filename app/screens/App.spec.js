@@ -4,6 +4,7 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 
 import App from './App';
+import Map from './map';
 import Sidebar from './sidebar';
 
 describe('screens/App', () => {
@@ -37,5 +38,10 @@ describe('screens/App', () => {
   it('renders Sidebar', () => {
     const sidebar = getWrapper().find(Sidebar);
     expect(sidebar).to.have.length(1);
+  });
+
+  it('renders Map', () => {
+    const map = getWrapper().find(Map);
+    expect(map).to.have.length(1);
   });
 });
