@@ -16,6 +16,43 @@ const markersSelector = createSelector(
   }
 );
 
+const boundariesSelector = createSelector(
+  markersSelector,
+  (markers) => {
+    let maxLatitude;
+    let minLatitude;
+    let maxLongitude;
+    let minLongitude;
+    for (const marker of markers) {
+      if (maxLatitude === undefined || marker.latitude > maxLatitude) {
+        maxLatitude = marker.latitude;
+      }
+      if (minLatitude === undefined || marker.latitude < minLatitude) {
+        minLatitude = marker.latitude;
+      }
+      if (maxLongitude === undefined || marker.longitude > maxLongitude) {
+        maxLongitude = marker.longitude;
+      }
+      if (minLongitude === undefined || marker.longitude < minLongitude) {
+        minLongitude = marker.longitude;
+      }
+    }
+    return {
+      maxLatitude,
+      minLatitude,
+      maxLongitude,
+      minLongitude,
+    };
+  }
+);
+
+const isLoadedSelector = createSelector(
+  markersSelector,
+  markers => markers.length > 0
+);
+
 export default createStructuredSelector({
+  isLoaded: isLoadedSelector,
   markers: markersSelector,
+  boundaries: boundariesSelector,
 });
