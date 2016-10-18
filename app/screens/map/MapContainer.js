@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Map, Marker, TileLayer, ZoomControl } from 'react-leaflet';
 
 import selector from './mapSelector';
+import Popup from './popup';
 
 const defaultPosition = [60.1699, 24.9384];
 
@@ -40,7 +41,9 @@ export class UnconnectedMapContainer extends React.Component {
         />
         <ZoomControl position="bottomright" />
         {this.props.markers.map(marker => (
-          <Marker key={marker.id} position={[marker.latitude, marker.longitude]} />
+          <Marker key={marker.id} position={[marker.latitude, marker.longitude]}>
+            <Popup id={marker.id} />
+          </Marker>
         ))}
       </Map>
     );

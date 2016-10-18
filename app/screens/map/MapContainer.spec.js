@@ -5,6 +5,7 @@ import { Map, Marker } from 'react-leaflet';
 import simple from 'simple-mock';
 
 import { UnconnectedMapContainer as MapContainer } from './MapContainer';
+import Popup from './popup';
 
 describe('screens/map/MapContainer', () => {
   function getWrapper(props) {
@@ -48,6 +49,14 @@ describe('screens/map/MapContainer', () => {
       expect(markers.at(0).prop('position')).to.deep.equal([0, 1]);
       expect(markers.at(1).prop('position')).to.deep.equal([2, 3]);
       expect(markers.at(2).prop('position')).to.deep.equal([4, 5]);
+    });
+
+    it('have popups as children', () => {
+      const markers = [{ id: '32', latitude: 0, longitude: 0 }];
+      const marker = getWrapper({ markers }).find(Marker);
+      const popup = marker.find(Popup);
+      expect(popup).to.have.length(1);
+      expect(popup.prop('id')).to.equal('32');
     });
   });
 
