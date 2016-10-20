@@ -1,15 +1,17 @@
 import { expect } from 'chai';
 
-import sidebarSelector from './sidebarSelector';
+import selector from './sidebarSelector';
 
 describe('screens/sidebar/sidebarSelector', () => {
-  const message = 'Some message';
-  const state = {
-    example: { message },
-  };
-  const selected = sidebarSelector(state);
+  describe('isLoaded', () => {
+    it('is true if units exist', () => {
+      const actual = selector({ data: { units: { 1: 1 } } });
+      expect(actual.isLoaded).to.be.true;
+    });
 
-  it('returns message from state', () => {
-    expect(selected.message).to.equal(message);
+    it('is false if units do not exist', () => {
+      const actual = selector({ data: { units: {} } });
+      expect(actual.isLoaded).to.be.false;
+    });
   });
 });

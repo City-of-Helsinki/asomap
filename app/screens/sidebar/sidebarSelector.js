@@ -1,10 +1,9 @@
-import { createSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 
-const messageSelector = state => state.example.message;
+function isLoadedSelector(state) {
+  return Object.keys(state.data.units).length > 0;
+}
 
-const sidebarSelector = createSelector(
-  messageSelector,
-  message => ({ message })
-);
-
-export default sidebarSelector;
+export default createStructuredSelector({
+  isLoaded: isLoadedSelector,
+});

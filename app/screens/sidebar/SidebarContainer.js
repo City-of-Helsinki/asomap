@@ -1,28 +1,20 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import uiActions from 'actions/uiActions';
+import CityFilter from './cityFilter';
 import selector from './sidebarSelector';
 
-export function UnconnectedSidebarContainer({ changeMessage, message }) {
+export function UnconnectedSidebarContainer(props) {
+  if (!props.isLoaded) return <div />;
   return (
     <div className="sidebar">
-      <h4>You have 1 message:</h4>
-      <p>{message}</p>
-      <button onClick={changeMessage} >
-        Change messega
-      </button>
+      <CityFilter />
     </div>
   );
 }
 
 UnconnectedSidebarContainer.propTypes = {
-  changeMessage: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
 };
 
-const actions = {
-  changeMessage: uiActions.changeMessage,
-};
-
-export default connect(selector, actions)(UnconnectedSidebarContainer);
+export default connect(selector)(UnconnectedSidebarContainer);
