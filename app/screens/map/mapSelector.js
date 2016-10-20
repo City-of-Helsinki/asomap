@@ -31,6 +31,7 @@ const markersSelector = createSelector(
 const boundariesSelector = createSelector(
   markersSelector,
   (markers) => {
+    const padding = 0.004;
     let maxLatitude;
     let minLatitude;
     let maxLongitude;
@@ -50,10 +51,10 @@ const boundariesSelector = createSelector(
       }
     }
     return {
-      maxLatitude,
-      minLatitude,
-      maxLongitude,
-      minLongitude,
+      maxLatitude: maxLatitude + padding,
+      minLatitude: minLatitude - padding,
+      maxLongitude: maxLongitude + padding,
+      minLongitude: minLongitude - padding,
     };
   }
 );
