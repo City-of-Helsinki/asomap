@@ -10,7 +10,9 @@ function createUnit(id, latitude, longitude, city = 'Helsinki') {
   return { id, coordinates: { latitude, longitude }, city };
 }
 
-describe('screens/map/mapSelctor', () => {
+const padding = 0.004;
+
+describe('screens/map/mapSelector', () => {
   describe('markers', () => {
     it('are returned', () => {
       const data = selector(getState({
@@ -63,10 +65,10 @@ describe('screens/map/mapSelctor', () => {
       },
     }));
     expect(data.boundaries).to.deep.equal({
-      maxLatitude: 5,
-      minLatitude: 0,
-      maxLongitude: 10,
-      minLongitude: 3,
+      maxLatitude: 5 + padding,
+      minLatitude: 0 - padding,
+      maxLongitude: 10 + padding,
+      minLongitude: 3 - padding,
     });
   });
 

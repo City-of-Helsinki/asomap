@@ -22,9 +22,9 @@ describe('screens/map/MapContainer', () => {
     return shallow(<MapContainer {...defaults} {...props} />);
   }
 
-  it('does not render map if not loaded', () => {
+  it('renders map even if not loaded', () => {
     const map = getWrapper({ isLoaded: false }).find(Map);
-    expect(map).to.have.length(0);
+    expect(map).to.have.length(1);
   });
 
   it('renders a Leaflet Map', () => {
@@ -61,8 +61,8 @@ describe('screens/map/MapContainer', () => {
   });
 
   describe('onMapRef', () => {
-    function callOnMapRef(fitBounds, boundaries) {
-      const wrapper = getWrapper({ boundaries });
+    function callOnMapRef(fitBounds, boundaries, extra = {}) {
+      const wrapper = getWrapper(Object.assign(extra, { boundaries }));
       wrapper.instance().onMapRef({ leafletElement: { fitBounds } });
     }
 
@@ -78,6 +78,43 @@ describe('screens/map/MapContainer', () => {
       expect(fitBounds.lastCall.args).to.deep.equal([
         [[5, 15], [10, 20]],
       ]);
+    });
+
+    it('does not call fitBounds if not loaded', () => {
+      const fitBounds = simple.mock();
+      callOnMapRef(fitBounds, {
+        maxLatitude: 10,
+        minLatitude: 5,
+        maxLongitude: 20,
+        minLongitude: 15,
+      }, { isLoaded: false });
+      expect(fitBounds.called).to.be.false;
+    });
+  });
+
+  describe('componentDidUpdate', () => {
+    function callComponentDidUpdate(prevBoundaries, boundaries, fitBounds) {
+      const instance = getWrapper({ boundaries }).instance();
+      instance.map = { leafletElement: { fitBounds } };
+      instance.componentDidUpdate({ boundaries: prevBoundaries });
+    }
+
+    it('calls fitBounds if boundaries changed', () => {
+      const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
+      const next = { maxLatitude: 1, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
+      const fitBounds = simple.mock();
+      callComponentDidUpdate(prev, next, fitBounds);
+      expect(fitBounds.callCount).to.equal(1);
+      expect(fitBounds.lastCall.args).to.deep.equal([
+        [[0, 0], [1, 0]],
+      ]);
+    });
+
+    it('does not call fitBounds if boundaries did not change', () => {
+      const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
+      const fitBounds = simple.mock();
+      callComponentDidUpdate(prev, prev, fitBounds);
+      expect(fitBounds.called).to.be.false;
     });
   });
 });

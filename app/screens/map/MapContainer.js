@@ -13,8 +13,15 @@ export class UnconnectedMapContainer extends React.Component {
     this.onMapRef = this.onMapRef.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.map && prevProps.boundaries !== this.props.boundaries) {
+      this.fitMapToBoundaries();
+    }
+  }
+
   onMapRef(map) {
-    map.leafletElement.fitBounds(this.getBounds());
+    this.map = map;
+    this.fitMapToBoundaries();
   }
 
   getBounds() {
@@ -25,8 +32,13 @@ export class UnconnectedMapContainer extends React.Component {
     ];
   }
 
+  fitMapToBoundaries() {
+    if (this.props.isLoaded) {
+      this.map.leafletElement.fitBounds(this.getBounds());
+    }
+  }
+
   render() {
-    if (!this.props.isLoaded) return <div />;
     return (
       <Map
         className="map"
