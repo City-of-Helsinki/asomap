@@ -1,11 +1,23 @@
+import pickBy from 'lodash/pickBy';
+
 import { createSelector, createStructuredSelector } from 'reselect';
 
 function unitsSelector(state) {
   return state.data.units;
 }
 
-const markersSelector = createSelector(
+function cityFilterSelector(state) {
+  return state.filters.city;
+}
+
+const filteredUnitsSelector = createSelector(
   unitsSelector,
+  cityFilterSelector,
+  (units, cityFilter) => pickBy(units, unit => cityFilter === '' || unit.city === cityFilter)
+);
+
+const markersSelector = createSelector(
+  filteredUnitsSelector,
   (units) => {
     const ids = Object.keys(units).sort();
     return ids.map(id => ({
@@ -47,8 +59,8 @@ const boundariesSelector = createSelector(
 );
 
 const isLoadedSelector = createSelector(
-  markersSelector,
-  markers => markers.length > 0
+  unitsSelector,
+  units => Object.keys(units).length > 0
 );
 
 export default createStructuredSelector({
