@@ -2,12 +2,15 @@ import { expect } from 'chai';
 
 import selector from './mapSelector';
 
-function getState({ units = {}, city = '' }) {
-  return { data: { units }, filters: { city } };
+function getState({ units = {}, city = '', postalCodes = [] }) {
+  return { data: { units }, filters: { city, postalCodes } };
 }
 
-function createUnit(id, latitude, longitude, city = 'Helsinki') {
-  return { id, coordinates: { latitude, longitude }, city };
+function createUnit(id, latitude, longitude, { city = 'Helsinki', addressZip = '00100' } = {}) {
+  return Object.assign(
+    { id, coordinates: { latitude, longitude } },
+    { city, addressZip }
+  );
 }
 
 const padding = 0.004;
@@ -30,8 +33,8 @@ describe('screens/map/mapSelector', () => {
     it('are filtered by city', () => {
       const data = selector(getState({
         units: {
-          21: createUnit(21, 0, 1, 'Helsinki'),
-          1: createUnit(1, 2, 3, 'Espoo'),
+          21: createUnit(21, 0, 1, { city: 'Helsinki' }),
+          1: createUnit(1, 2, 3, { city: 'Espoo' }),
         },
         city: 'Espoo',
       }));
@@ -40,17 +43,63 @@ describe('screens/map/mapSelector', () => {
       ]);
     });
 
-    it('are not filtered if city filter is ""', () => {
+    it('are not filtered by city if city filter is ""', () => {
       const data = selector(getState({
         units: {
-          21: createUnit(21, 0, 1, 'Helsinki'),
-          1: createUnit(1, 2, 3, 'Espoo'),
+          21: createUnit(21, 0, 1, { city: 'Helsinki' }),
+          1: createUnit(1, 2, 3, { city: 'Espoo' }),
         },
         city: '',
       }));
       expect(data.markers).to.deep.equal([
         { id: '1', latitude: 2, longitude: 3 },
         { id: '21', latitude: 0, longitude: 1 },
+      ]);
+    });
+
+    it('are filtered by postal code', () => {
+      const data = selector(getState({
+        units: {
+          21: createUnit(21, 0, 1, { addressZip: '00100' }),
+          1: createUnit(1, 2, 3, { addressZip: '00200' }),
+          3: createUnit(3, 2, 3, { addressZip: '00300' }),
+        },
+        postalCodes: ['00200', '00300'],
+      }));
+      expect(data.markers).to.deep.equal([
+        { id: '1', latitude: 2, longitude: 3 },
+        { id: '3', latitude: 2, longitude: 3 },
+      ]);
+    });
+
+    it('are not filtered by postal code if postalCodes is []', () => {
+      const data = selector(getState({
+        units: {
+          21: createUnit(21, 0, 1, { addressZip: '00100' }),
+          1: createUnit(1, 2, 3, { addressZip: '00200' }),
+          3: createUnit(3, 2, 3, { addressZip: '00300' }),
+        },
+        postalCodes: [],
+      }));
+      expect(data.markers).to.deep.equal([
+        { id: '1', latitude: 2, longitude: 3 },
+        { id: '21', latitude: 0, longitude: 1 },
+        { id: '3', latitude: 2, longitude: 3 },
+      ]);
+    });
+
+    it('are filtered by postal code and city', () => {
+      const data = selector(getState({
+        units: {
+          21: createUnit(21, 0, 1, { city: 'Helsinki', addressZip: '00100' }),
+          1: createUnit(1, 2, 3, { city: 'Espoo', addressZip: '02100' }),
+          3: createUnit(3, 2, 3, { city: 'Espoo', addressZip: '02200' }),
+        },
+        city: 'Espoo',
+        postalCodes: ['02100', '00100'],
+      }));
+      expect(data.markers).to.deep.equal([
+        { id: '1', latitude: 2, longitude: 3 },
       ]);
     });
   });
@@ -85,7 +134,7 @@ describe('screens/map/mapSelector', () => {
 
     it('is true if has units but none match filters', () => {
       const data = selector(getState({
-        units: { 1: createUnit(1, 5, 5, 'Helsinki') },
+        units: { 1: createUnit(1, 5, 5, { city: 'Helsinki' }) },
         city: 'Espoo',
       }));
       expect(data.isLoaded).to.be.true;
