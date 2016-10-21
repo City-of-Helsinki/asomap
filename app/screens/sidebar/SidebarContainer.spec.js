@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 import CityFilter from './cityFilter';
+import PostalCodeFilter from './postalCodeFilter';
 import { UnconnectedSidebarContainer as SidebarContainer } from './SidebarContainer';
 
 describe('screens/sidebar/SidebarContainer', () => {
@@ -14,6 +15,11 @@ describe('screens/sidebar/SidebarContainer', () => {
   it('renders CityFilter', () => {
     const cityFilter = getWrapper().find(CityFilter);
     expect(cityFilter).to.have.length(1);
+  });
+
+  it('renders PostalCodeFilter', () => {
+    const postalCodeFilter = getWrapper().find(PostalCodeFilter);
+    expect(postalCodeFilter).to.have.length(1);
   });
 
   describe('when not loaded', () => {
