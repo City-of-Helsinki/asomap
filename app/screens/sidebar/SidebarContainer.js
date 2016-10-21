@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import CityFilter from './cityFilter';
+import PostalCodeFilter from './postalCodeFilter';
 import selector from './sidebarSelector';
 
 export function UnconnectedSidebarContainer(props) {
@@ -9,6 +10,7 @@ export function UnconnectedSidebarContainer(props) {
   return (
     <div className="sidebar">
       <CityFilter />
+      <PostalCodeFilter />
     </div>
   );
 }
