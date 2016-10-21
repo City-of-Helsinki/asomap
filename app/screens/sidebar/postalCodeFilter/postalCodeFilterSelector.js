@@ -6,6 +6,10 @@ function unitsSelector(state) {
   return state.data.units;
 }
 
+function filterSelector(state) {
+  return state.filters.postalCodes;
+}
+
 const postalCodesSelector = createSelector(
   unitsSelector,
   units => sortedUniq(values(units).map(unit => unit.addressZip).sort())
@@ -13,4 +17,5 @@ const postalCodesSelector = createSelector(
 
 export default createStructuredSelector({
   postalCodes: postalCodesSelector,
+  selectedPostalCodes: filterSelector,
 });

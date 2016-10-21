@@ -7,6 +7,7 @@ describe('state/reducers/filtersReducer', () => {
     const initial = reducer(undefined, { type: 'NOOP' });
     expect(initial).to.deep.equal({
       city: '',
+      postalCodes: [],
     });
   });
 
@@ -25,6 +26,26 @@ describe('state/reducers/filtersReducer', () => {
         payload: '',
       });
       expect(actual.city).to.equal('');
+    });
+  });
+
+  describe('CHANGE_POSTAL_CODE_FILTER', () => {
+    it('assigns payload to postalCode', () => {
+      const payload = ['00100', '00180'];
+      const actual = reducer(null, {
+        type: 'CHANGE_POSTAL_CODE_FILTER',
+        payload,
+      });
+      expect(actual.postalCodes).to.equal(payload);
+    });
+
+    it('can change to empty array', () => {
+      const payload = [];
+      const actual = reducer(null, {
+        type: 'CHANGE_POSTAL_CODE_FILTER',
+        payload,
+      });
+      expect(actual.postalCodes).to.equal(payload);
     });
   });
 });
