@@ -10,10 +10,21 @@ function cityFilterSelector(state) {
   return state.filters.city;
 }
 
+function postalCodeFilterSelector(state) {
+  return state.filters.postalCodes;
+}
+
 const filteredUnitsSelector = createSelector(
   unitsSelector,
   cityFilterSelector,
-  (units, cityFilter) => pickBy(units, unit => cityFilter === '' || unit.city === cityFilter)
+  postalCodeFilterSelector,
+  (units, cityFilter, postalCodes) => pickBy(
+    units,
+    unit => (
+      (cityFilter === '' || unit.city === cityFilter) &&
+      (postalCodes.length === 0 || postalCodes.indexOf(unit.addressZip) !== -1)
+    )
+  )
 );
 
 const markersSelector = createSelector(
