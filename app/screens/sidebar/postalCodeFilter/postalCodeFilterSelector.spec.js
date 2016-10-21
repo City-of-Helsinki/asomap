@@ -2,11 +2,24 @@ import { expect } from 'chai';
 
 import selector from './postalCodeFilterSelector';
 
-function getState({ units = {} } = {}) {
-  return { data: { units } };
+function getState({ units = {}, filter = [] } = {}) {
+  return { data: { units }, filters: { postalCodes: filter } };
 }
 
 describe('screens/sidebar/postalCodeFilter/postalCodeSelector', () => {
+  describe('selectedPostalCodes', () => {
+    it('can be empty array', () => {
+      const actual = selector(getState());
+      expect(actual.selectedPostalCodes).to.deep.equal([]);
+    });
+
+    it('selects postalCodes filter', () => {
+      const filter = ['00100', '00200'];
+      const actual = selector(getState({ filter }));
+      expect(actual.selectedPostalCodes).to.equal(filter);
+    });
+  });
+
   describe('postal codes', () => {
     it('can be empty', () => {
       const actual = selector(getState());
