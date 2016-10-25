@@ -6,11 +6,14 @@ import selector from './ownerFilterSelector';
 
 export function UnconnectedOwnerFilterContainer(props) {
   return (
-    <select className="owner-filter" multiple onChange={props.onSelect} value={props.selectedOwners}>
-      {props.owners.map(owner => (
-        <option key={owner} value={owner}>{owner}</option>
-      ))}
-    </select>
+    <div className="owner-filter">
+      <h5>Omistaja</h5>
+      <select multiple onChange={props.onSelect} value={props.selectedOwners}>
+        {props.owners.map(owner => (
+          <option key={owner} value={owner}>{owner}</option>
+        ))}
+      </select>
+    </div>
   );
 }
 

@@ -10,9 +10,12 @@ export function UnconnectedSidebarContainer(props) {
   if (!props.isLoaded) return <div />;
   return (
     <div className="sidebar">
-      <CityFilter />
-      <PostalCodeFilter />
-      <OwnerFilter />
+      <h4>Suodata kohteita</h4>
+      <div className="sidebar-container">
+        <CityFilter />
+        <PostalCodeFilter />
+        <OwnerFilter />
+      </div>
     </div>
   );
 }
