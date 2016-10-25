@@ -1,15 +1,27 @@
+@import "./cityFilter/cityFilter";
 @import "./ownerFilter/ownerFilter";
 @import "./postalCodeFilter/postalCodeFilter";
 
 .sidebar {
+  background-color: @primary-contrast-color;
+  color: @primary-color;
   position: absolute;
-  top: 10px;
-  left: 10px;
+  width: 20rem;
+  top: 1rem;
+  left: 1rem;
   z-index: 1000;
-  background-color: white;
-  padding: 10px;
+  border-radius: 2px;
 
   h4 {
-    color: @blue;
+    background-color: @primary-color;
+    color: @primary-contrast-color;
+    margin: 0;
+    padding: 0.6rem 1rem;
+    font-weight: normal;
+    border-radius: 2px 2px 0 0;
+  }
+
+  &-container {
+    padding: 0.6rem 1rem;
   }
 }

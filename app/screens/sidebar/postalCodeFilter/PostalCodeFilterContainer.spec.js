@@ -33,13 +33,13 @@ describe('screens/sidebar/postalCodeFilter/PostalCodeFilterContainer', () => {
 
   it('selects selected values', () => {
     const selectedPostalCodes = ['00100', '00200'];
-    const wrapper = getWrapper({ selectedPostalCodes });
-    expect(wrapper.prop('value')).to.equal(selectedPostalCodes);
+    const select = getWrapper({ selectedPostalCodes }).find('select');
+    expect(select.prop('value')).to.equal(selectedPostalCodes);
   });
 
   it('binds onSelect to select.onChange', () => {
     const onSelect = () => null;
-    const wrapper = getWrapper({ onSelect });
-    expect(wrapper.prop('onChange')).to.equal(onSelect);
+    const select = getWrapper({ onSelect }).find('select');
+    expect(select.prop('onChange')).to.equal(onSelect);
   });
 });

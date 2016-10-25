@@ -34,13 +34,13 @@ describe('screens/sidebar/ownerFilter/OwnerFilterContainer', () => {
 
   it('binds onSelect to select.onChange', () => {
     const onSelect = () => null;
-    const wrapper = getWrapper({ onSelect });
-    expect(wrapper.prop('onChange')).to.equal(onSelect);
+    const select = getWrapper({ onSelect }).find('select');
+    expect(select.prop('onChange')).to.equal(onSelect);
   });
 
   it('uses selectedOwners as the select value', () => {
     const selectedOwners = ['A', 'B', 'C'];
-    const wrapper = getWrapper({ selectedOwners });
-    expect(wrapper.prop('value')).to.equal(selectedOwners);
+    const select = getWrapper({ selectedOwners }).find('select');
+    expect(select.prop('value')).to.equal(selectedOwners);
   });
 });
