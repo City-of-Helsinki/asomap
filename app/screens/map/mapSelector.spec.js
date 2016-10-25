@@ -2,14 +2,14 @@ import { expect } from 'chai';
 
 import selector from './mapSelector';
 
-function getState({ units = {}, city = '', postalCodes = [] }) {
-  return { data: { units }, filters: { city, postalCodes } };
+function getState({ units = {}, city = '', postalCodes = [], owners = [] }) {
+  return { data: { units }, filters: { city, postalCodes, owners } };
 }
 
-function createUnit(id, latitude, longitude, { city = 'Helsinki', addressZip = '00100' } = {}) {
+function createUnit(id, latitude, longitude, { city = 'Helsinki', addressZip = '00100', owner = 'Owner' } = {}) {
   return Object.assign(
     { id, coordinates: { latitude, longitude } },
-    { city, addressZip }
+    { city, addressZip, owner }
   );
 }
 
@@ -100,6 +100,37 @@ describe('screens/map/mapSelector', () => {
       }));
       expect(data.markers).to.deep.equal([
         { id: '1', latitude: 2, longitude: 3 },
+      ]);
+    });
+
+    it('are filtered by owner', () => {
+      const data = selector(getState({
+        units: {
+          1: createUnit(1, 0, 1, { owner: 'Owner A' }),
+          2: createUnit(2, 0, 1, { owner: 'Owner B' }),
+          3: createUnit(3, 0, 1, { owner: 'Owner C' }),
+        },
+        owners: ['Owner A', 'Owner C'],
+      }));
+      expect(data.markers).to.deep.equal([
+        { id: '1', latitude: 0, longitude: 1 },
+        { id: '3', latitude: 0, longitude: 1 },
+      ]);
+    });
+
+    it('are not filtered by owner if owner is []', () => {
+      const data = selector(getState({
+        units: {
+          1: createUnit(1, 0, 1, { owner: 'Owner A' }),
+          2: createUnit(2, 0, 1, { owner: 'Owner B' }),
+          3: createUnit(3, 0, 1, { owner: 'Owner C' }),
+        },
+        owners: [],
+      }));
+      expect(data.markers).to.deep.equal([
+        { id: '1', latitude: 0, longitude: 1 },
+        { id: '2', latitude: 0, longitude: 1 },
+        { id: '3', latitude: 0, longitude: 1 },
       ]);
     });
   });
