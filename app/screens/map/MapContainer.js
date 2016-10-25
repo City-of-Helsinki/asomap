@@ -5,7 +5,8 @@ import { Map, Marker, TileLayer, ZoomControl } from 'react-leaflet';
 import selector from './mapSelector';
 import Popup from './popup';
 
-const defaultPosition = [60.1699, 24.9384];
+const defaultPosition = [60.372465778991284, 24.818115234375004];
+const defaultZoom = 10;
 
 export class UnconnectedMapContainer extends React.Component {
   constructor() {
@@ -43,7 +44,7 @@ export class UnconnectedMapContainer extends React.Component {
       <Map
         className="map"
         center={defaultPosition}
-        zoom={12}
+        zoom={defaultZoom}
         zoomControl={false}
         ref={this.onMapRef}
       >
