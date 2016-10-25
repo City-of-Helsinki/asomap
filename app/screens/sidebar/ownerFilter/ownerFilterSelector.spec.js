@@ -2,8 +2,8 @@ import { expect } from 'chai';
 
 import selector from './ownerFilterSelector';
 
-function getState({ units = {} } = {}) {
-  return { data: { units } };
+function getState({ units = {}, filter = [] } = {}) {
+  return { data: { units }, filters: { owners: filter } };
 }
 
 function createUnit(id, owner) {
@@ -51,6 +51,14 @@ describe('screens/sidebar/ownerFilter/ownerFilterSelector', () => {
         'Owner A',
         'Owner B',
       ]);
+    });
+  });
+
+  describe('selectedOwners', () => {
+    it('selects owner filter', () => {
+      const filter = ['Owner A', 'Owner B'];
+      const actual = selector(getState({ filter }));
+      expect(actual.selectedOwners).to.equal(filter);
     });
   });
 });
