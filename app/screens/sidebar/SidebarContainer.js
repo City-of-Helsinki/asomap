@@ -12,7 +12,10 @@ export function UnconnectedSidebarContainer(props) {
   if (!props.isLoaded) return <div />;
   return (
     <div className={classNames('sidebar', { 'sidebar-collapsed': props.isCollapsed })}>
-      <a className="header-link" href="#sidebar" onClick={props.onHeaderClick}><h4>Suodata kohteita</h4></a>
+      <a className="header-link" href="#sidebar" onClick={props.onHeaderClick}>
+        <i className="material-icons sidebar-menu-icon">menu</i>
+        <h4>Suodata kohteita</h4>
+      </a>
       <div className="sidebar-container">
         <CityFilter />
         <PostalCodeFilter />
