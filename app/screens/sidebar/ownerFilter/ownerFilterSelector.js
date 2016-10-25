@@ -6,6 +6,10 @@ function unitsSelector(state) {
   return state.data.units;
 }
 
+function selectedOwnersSelector(state) {
+  return state.filters.owners;
+}
+
 const ownersSelector = createSelector(
   unitsSelector,
   units => sortedUniq(values(units).map(unit => unit.owner).sort())
@@ -13,4 +17,5 @@ const ownersSelector = createSelector(
 
 export default createStructuredSelector({
   owners: ownersSelector,
+  selectedOwners: selectedOwnersSelector,
 });

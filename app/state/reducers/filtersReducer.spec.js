@@ -7,6 +7,7 @@ describe('state/reducers/filtersReducer', () => {
     const initial = reducer(undefined, { type: 'NOOP' });
     expect(initial).to.deep.equal({
       city: '',
+      owners: [],
       postalCodes: [],
     });
   });
@@ -26,6 +27,26 @@ describe('state/reducers/filtersReducer', () => {
         payload: '',
       });
       expect(actual.city).to.equal('');
+    });
+  });
+
+  describe('CHANGE_OWNER_FILTER', () => {
+    it('assigns payload to owner', () => {
+      const payload = ['Owner A', 'Owner B'];
+      const actual = reducer(null, {
+        type: 'CHANGE_OWNER_FILTER',
+        payload,
+      });
+      expect(actual.owners).to.equal(payload);
+    });
+
+    it('can change to empty array', () => {
+      const payload = [];
+      const actual = reducer(null, {
+        type: 'CHANGE_OWNER_FILTER',
+        payload,
+      });
+      expect(actual.owners).to.equal(payload);
     });
   });
 
