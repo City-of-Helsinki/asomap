@@ -10,6 +10,10 @@ function cityFilterSelector(state) {
   return state.filters.city;
 }
 
+function ownerFilterSelector(state) {
+  return state.filters.owners;
+}
+
 function postalCodeFilterSelector(state) {
   return state.filters.postalCodes;
 }
@@ -17,11 +21,13 @@ function postalCodeFilterSelector(state) {
 const filteredUnitsSelector = createSelector(
   unitsSelector,
   cityFilterSelector,
+  ownerFilterSelector,
   postalCodeFilterSelector,
-  (units, cityFilter, postalCodes) => pickBy(
+  (units, city, owners, postalCodes) => pickBy(
     units,
     unit => (
-      (cityFilter === '' || unit.city === cityFilter) &&
+      (city === '' || unit.city === city) &&
+      (owners.length === 0 || owners.indexOf(unit.owner) !== -1) &&
       (postalCodes.length === 0 || postalCodes.indexOf(unit.addressZip) !== -1)
     )
   )
