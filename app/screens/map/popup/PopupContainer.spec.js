@@ -24,37 +24,37 @@ describe('screens/map/popup/PopupContainer', () => {
   });
 
   it('renders owner', () => {
-    const owner = getWrapper().find('.owner');
+    const owner = getWrapper().find('.popup-owner');
     expect(owner).to.have.length(1);
-    expect(owner.text()).to.equal('Omistaja: Unit owner');
+    expect(owner.text()).to.equal('Unit owner');
   });
 
   it('renders name', () => {
-    const name = getWrapper().find('.name');
+    const name = getWrapper().find('.popup-name');
     expect(name).to.have.length(1);
-    expect(name.text()).to.equal('Nimi: Unit name');
+    expect(name.text()).to.equal('Unit name');
   });
 
   it('renders streetAddress', () => {
-    const streetAddress = getWrapper().find('.streetAddress');
+    const streetAddress = getWrapper().find('.popup-street-address');
     expect(streetAddress).to.have.length(1);
-    expect(streetAddress.text()).to.equal('Osoite: Unit address');
+    expect(streetAddress.text()).to.equal('Unit address');
   });
 
   it('renders addressZip', () => {
-    const addressZip = getWrapper().find('.addressZip');
+    const addressZip = getWrapper().find('.popup-postal-code');
     expect(addressZip).to.have.length(1);
-    expect(addressZip.text()).to.equal('Postinumero: 00100');
+    expect(addressZip.text()).to.equal('00100');
   });
 
   it('renders city', () => {
-    const city = getWrapper().find('.city');
+    const city = getWrapper().find('.popup-city');
     expect(city).to.have.length(1);
-    expect(city.text()).to.equal('Kaupunki: Helsinki');
+    expect(city.text()).to.equal('Helsinki');
   });
 
   it('renders url', () => {
-    const url = getWrapper().find('.url');
+    const url = getWrapper().find('.popup-url');
     expect(url).to.have.length(1);
     const link = url.find('a');
     expect(link).to.have.length(1);
