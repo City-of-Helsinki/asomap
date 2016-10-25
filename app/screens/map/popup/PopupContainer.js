@@ -7,13 +7,17 @@ import selector from './popupSelector';
 export function UnconnectedPopupContainer(props) {
   return (
     <Popup>
-      <div>
-        <div className="owner">Omistaja: {props.owner}</div>
-        <div className="name">Nimi: {props.name}</div>
-        <div className="streetAddress">Osoite: {props.streetAddress}</div>
-        <div className="addressZip">Postinumero: {props.addressZip}</div>
-        <div className="city">Kaupunki: {props.city}</div>
-        <div className="url"><a href={props.url}>WWW-sivu</a></div>
+      <div className="popup">
+        <h4 className="popup-name">{props.name}</h4>
+        <div className="popup-content">
+          <div className="popup-owner">{props.owner}</div>
+          <div className="popup-address">
+            <span className="popup-street-address">{props.streetAddress}</span>
+            <span className="popup-postal-code">{props.addressZip}</span>
+            <span className="popup-city">{props.city}</span>
+          </div>
+          <div className="popup-url"><a href={props.url}>WWW-sivu</a></div>
+        </div>
       </div>
     </Popup>
   );
