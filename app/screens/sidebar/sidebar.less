@@ -21,7 +21,21 @@
     border-radius: @border-radius @border-radius 0 0;
   }
 
+  .header-link {
+    text-decoration: none;
+  }
+
   &-container {
     padding: 0.6rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    &-collapsed &-container {
+      padding: 0;
+      height: 0;
+      overflow-y: hidden;
+    }
   }
 }
