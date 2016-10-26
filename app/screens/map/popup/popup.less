@@ -1,5 +1,5 @@
 .leaflet-popup-content-wrapper {
-  border-radius: 2px;
+  border-radius: @border-radius;
   padding: 0;
 }
 
@@ -9,20 +9,25 @@
 
 .leaflet-container a.leaflet-popup-close-button {
   top: 0.3rem;
+  color: @primary-contrast-color;
+
+  &:hover {
+    color: mix(@primary-contrast-color, @primary-color, 75%);
+  }
 }
 
 .popup {
   font-family: @font-family;
   background-color: @primary-contrast-color;
-  color: @primary-color;
-  border-radius: 2px;
+  color: @text-color;
+  border-radius: @border-radius;
 
   h4 {
     background-color: @primary-color;
     color: @primary-contrast-color;
     margin: 0;
     padding: 0.5rem 1rem;
-    border-radius: 2px 2px 0 0;
+    border-radius: @border-radius @border-radius 0 0;
   }
 
   .popup-content {
@@ -40,6 +45,15 @@
     .popup-postal-code {
       display: inline-block;
       margin-right: 0.3rem;
+    }
+
+    .popup-url a {
+      color: @primary-color;
+      text-decoration: none;
+
+      &:hover {
+        color: mix(@primary-color, @primary-contrast-color, 75%);
+      }
     }
   }
 }
