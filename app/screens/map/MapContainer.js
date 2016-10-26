@@ -34,8 +34,18 @@ export class UnconnectedMapContainer extends React.Component {
     ];
   }
 
+  hasBoundaries() {
+    const boundaries = this.props.boundaries;
+    return (
+      boundaries.minLatitude ||
+      boundaries.minLongitude ||
+      boundaries.maxLatitude ||
+      boundaries.maxLongitude
+    );
+  }
+
   fitMapToBoundaries() {
-    if (this.props.isLoaded) {
+    if (this.props.isLoaded && this.hasBoundaries()) {
       this.map.leafletElement.fitBounds(this.getBounds());
     }
   }

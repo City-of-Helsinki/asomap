@@ -124,9 +124,17 @@ describe('screens/map/MapContainer', () => {
     });
 
     it('does not call fitBounds if boundaries did not change', () => {
-      const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
+      const prev = { maxLatitude: 1, minLatitude: 1, maxLongitude: 1, minLongitude: 1 };
       const fitBounds = simple.mock();
       callComponentDidUpdate(prev, prev, fitBounds);
+      expect(fitBounds.called).to.be.false;
+    });
+
+    it('does not call fitBounds if new boundaries are nulls', () => {
+      const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
+      const next = { maxLatitude: null, minLatitude: null, maxLongitude: null, minLongitude: null };
+      const fitBounds = simple.mock();
+      callComponentDidUpdate(prev, next, fitBounds);
       expect(fitBounds.called).to.be.false;
     });
   });
