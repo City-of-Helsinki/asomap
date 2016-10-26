@@ -2,17 +2,18 @@ import { connect } from 'react-redux';
 import React, { PropTypes } from 'react';
 
 import uiActions from 'actions/uiActions';
+import Select from 'screens/sidebar/Select';
 import selector from './ownerFilterSelector';
 
 export function UnconnectedOwnerFilterContainer(props) {
   return (
     <div className="owner-filter">
       <h5>Omistaja</h5>
-      <select multiple onChange={props.onSelect} value={props.selectedOwners}>
-        {props.owners.map(owner => (
-          <option key={owner} value={owner}>{owner}</option>
-        ))}
-      </select>
+      <Select
+        onChange={props.onSelect}
+        options={props.owners.map(owner => ({ label: owner, value: owner }))}
+        value={props.selectedOwners}
+      />
     </div>
   );
 }
@@ -24,11 +25,7 @@ UnconnectedOwnerFilterContainer.propTypes = {
 };
 
 const actions = {
-  onSelect: (event) => {
-    const selected = Array.from(event.target.selectedOptions);
-    const value = selected.map(option => option.value);
-    return uiActions.changeOwnerFilter(value);
-  },
+  onSelect: value => uiActions.changeOwnerFilter(value),
 };
 
 export default connect(selector, actions)(UnconnectedOwnerFilterContainer);

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
+import Select from 'screens/sidebar/Select';
 import { UnconnectedOwnerFilterContainer as OwnerFilterContainer } from './OwnerFilterContainer';
 
 function getWrapper(props) {
@@ -13,34 +14,30 @@ function getWrapper(props) {
   return shallow(<OwnerFilterContainer {...defaults} {...props} />);
 }
 
-function testOption(option, value) {
-  expect(option.prop('value')).to.equal(value);
-  expect(option.text()).to.equal(value);
-}
-
 describe('screens/sidebar/ownerFilter/OwnerFilterContainer', () => {
   it('renders no options if none given', () => {
-    const owners = getWrapper().find('option');
-    expect(owners).to.have.length(0);
+    const select = getWrapper().find(Select);
+    expect(select.prop('options')).to.deep.equal([]);
   });
 
   it('renders option for owners', () => {
-    const owners = getWrapper({ owners: ['A', 'B', 'C'] }).find('option');
-    expect(owners).to.have.length(3);
-    testOption(owners.at(0), 'A');
-    testOption(owners.at(1), 'B');
-    testOption(owners.at(2), 'C');
+    const select = getWrapper({ owners: ['A', 'B', 'C'] }).find(Select);
+    expect(select.prop('options')).to.deep.equal([
+      { label: 'A', value: 'A' },
+      { label: 'B', value: 'B' },
+      { label: 'C', value: 'C' },
+    ]);
   });
 
-  it('binds onSelect to select.onChange', () => {
+  it('binds onSelect to Select.onChange', () => {
     const onSelect = () => null;
-    const select = getWrapper({ onSelect }).find('select');
+    const select = getWrapper({ onSelect }).find(Select);
     expect(select.prop('onChange')).to.equal(onSelect);
   });
 
   it('uses selectedOwners as the select value', () => {
     const selectedOwners = ['A', 'B', 'C'];
-    const select = getWrapper({ selectedOwners }).find('select');
+    const select = getWrapper({ selectedOwners }).find(Select);
     expect(select.prop('value')).to.equal(selectedOwners);
   });
 });
