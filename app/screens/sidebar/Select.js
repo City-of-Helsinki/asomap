@@ -26,8 +26,10 @@ class Select extends React.Component {
         <ReactSelect
           className="select-default"
           multi
+          noResultsText="Ei tuloksia"
           onChange={this.handleChange}
           options={this.props.options}
+          placeholder="Valitse..."
           value={this.props.value}
         />
         <select

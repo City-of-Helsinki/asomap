@@ -6,12 +6,15 @@ import selector from './cityFilterSelector';
 
 export function UnconnectedCityFilterContainer(props) {
   return (
-    <select className="city-filter" value={props.selected} onChange={props.onSelect}>
-      <option value="">Kaikki kaupungit</option>
-      {props.cities.map(city => (
-        <option key={city} value={city}>{city}</option>
-      ))}
-    </select>
+    <div className="city-filter">
+      <h5>Kaupunki</h5>
+      <select value={props.selected} onChange={props.onSelect}>
+        <option value="">Kaikki kaupungit</option>
+        {props.cities.map(city => (
+          <option key={city} value={city}>{city}</option>
+        ))}
+      </select>
+    </div>
   );
 }
 
