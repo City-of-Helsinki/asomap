@@ -1,15 +1,28 @@
 .city-filter {
-  width: 100%;
-  height: 2.5rem;
-  padding: 0.5rem;
-  background-color: @primary-color;
-  color: @primary-contrast-color;
-  border: none;
-  border-radius: @border-radius;
+  display: block;
   font-family: @font-family;
 
-  option {
+  h5 {
+    background-color: @secondary-color;
+    color: @secondary-contrast-color;
+    margin: 0;
+    padding: 0.6rem 0.5rem;
+    font-weight: normal;
+    border-radius: @border-radius @border-radius 0 0;
+  }
+
+  select {
+    width: 100%;
+    height: 2.8rem;
+    padding: 0.5rem;
     background-color: @primary-contrast-color;
-    color: @primary-color;
+    color: @text-color;
+    border: 5px solid @secondary-color;
+    border-radius: 0 0 @border-radius @border-radius;
+
+    option {
+      background-color: @primary-contrast-color;
+      color: @primary-color;
+    }
   }
 }

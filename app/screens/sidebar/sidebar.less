@@ -1,3 +1,4 @@
+@import "./select";
 @import "./cityFilter/cityFilter";
 @import "./ownerFilter/ownerFilter";
 @import "./postalCodeFilter/postalCodeFilter";
@@ -6,7 +7,7 @@
   background-color: @primary-contrast-color;
   color: @primary-color;
   position: absolute;
-  width: 20rem;
+  width: 400px;
   top: 1rem;
   left: 1rem;
   z-index: 1000;
@@ -32,7 +33,15 @@
     .material-icons {
       vertical-align: middle;
       margin-right: 0.5rem;
-      display: none;
+      display: inline-block;
+    }
+  }
+
+  &-collapsed {
+    .sidebar-container {
+      padding: 0;
+      height: 0;
+      overflow-y: hidden;
     }
   }
 
@@ -50,18 +59,6 @@
 
     .header-link {
       border-radius: 0px;
-
-      .material-icons {
-        display: inline-block;
-      }
-    }
-
-    &-collapsed {
-      .sidebar-container {
-        padding: 0;
-        height: 0;
-        overflow-y: hidden;
-      }
     }
   }
 }

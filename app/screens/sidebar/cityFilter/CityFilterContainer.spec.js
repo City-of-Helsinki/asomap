@@ -25,19 +25,19 @@ describe('screens/sidebar/cityFilter/CityFilterContainer', () => {
   }
 
   it('selects empty value by default', () => {
-    const wrapper = getWrapper();
-    expect(wrapper.prop('value')).to.equal('');
+    const select = getWrapper().find('select');
+    expect(select.prop('value')).to.equal('');
   });
 
   it('selects given value', () => {
-    const wrapper = getWrapper({ selected: 'Hoopaloopa' });
-    expect(wrapper.prop('value')).to.equal('Hoopaloopa');
+    const select = getWrapper({ selected: 'Hoopaloopa' }).find('select');
+    expect(select.prop('value')).to.equal('Hoopaloopa');
   });
 
   it('binds given onSelect to select.onChange', () => {
     const onSelect = () => null;
-    const wrapper = getWrapper({ onSelect });
-    expect(wrapper.prop('onChange')).to.equal(onSelect);
+    const select = getWrapper({ onSelect }).find('select');
+    expect(select.prop('onChange')).to.equal(onSelect);
   });
 
   it('renders only all cities option if no cities', () => {
