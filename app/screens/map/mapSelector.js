@@ -2,6 +2,17 @@ import pickBy from 'lodash/pickBy';
 
 import { createSelector, createStructuredSelector } from 'reselect';
 
+const images = {
+  'AVAIN Asumisoikeus Oy': 'avain',
+  'Asumisoikeusyhdistys Suomen Omakoti': 'suomenomakoti',
+  'Asuntosäätiön Asumisoikeus Oy': 'asuntosaation',
+  'Helsingin Asumisoikeus Oy': 'helsingin',
+  'Helsingin Seudun Asumisoikeusyhdistys HELAS': 'helsingin',
+  'Kanta-Suomen Asumisoikeusyhdistys': 'kantasuomen',
+  'Setlementtiasumisoikeus Oy': 'setlementti',
+  'TA-Asumisoikeus Oy': 'ta',
+};
+
 function unitsSelector(state) {
   return state.data.units;
 }
@@ -41,6 +52,7 @@ const markersSelector = createSelector(
       id,
       latitude: units[id].coordinates.latitude,
       longitude: units[id].coordinates.longitude,
+      image: images[units[id].owner],
     }));
   }
 );
