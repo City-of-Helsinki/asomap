@@ -4,6 +4,8 @@ import asuntosaation from 'assets/images/markers/asomarker-asuntosaation.png';
 import asuntosaation2x from 'assets/images/markers/asomarker-asuntosaation@2x.png';
 import avain from 'assets/images/markers/asomarker-avain.png';
 import avain2x from 'assets/images/markers/asomarker-avain@2x.png';
+import helas from 'assets/images/markers/asomarker-helas.png';
+import helas2x from 'assets/images/markers/asomarker-helas@2x.png';
 import helsingin from 'assets/images/markers/asomarker-helsingin.png';
 import helsingin2x from 'assets/images/markers/asomarker-helsingin@2x.png';
 import kantasuomen from 'assets/images/markers/asomarker-kantasuomen.png';
@@ -20,6 +22,8 @@ const images = {
   asuntosaation2x,
   avain,
   avain2x,
+  helas,
+  helas2x,
   helsingin,
   helsingin2x,
   kantasuomen,
@@ -50,6 +54,7 @@ function createIcon(name) {
 export default {
   asuntosaation: createIcon('asuntosaation'),
   avain: createIcon('avain'),
+  helas: createIcon('helas'),
   helsingin: createIcon('helsingin'),
   kantasuomen: createIcon('kantasuomen'),
   setlementti: createIcon('setlementti'),
