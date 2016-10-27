@@ -13,7 +13,7 @@ describe('state/reducers/uiReducer', () => {
     const actual = reducer(undefined, { type: 'NOOP' });
     expect(actual).to.deep.equal({
       sidebar: {
-        collapsed: true,
+        collapsed: window.innerWidth <= 768,
       },
     });
   });

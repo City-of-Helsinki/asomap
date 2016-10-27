@@ -1,8 +1,12 @@
 import actionTypes from 'actions/actionTypes';
 
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
 const initialState = {
   sidebar: {
-    collapsed: true,
+    collapsed: isMobile(),
   },
 };
 
