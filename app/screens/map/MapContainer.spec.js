@@ -4,6 +4,7 @@ import React from 'react';
 import { Map, Marker } from 'react-leaflet';
 import simple from 'simple-mock';
 
+import icons from './icons';
 import { UnconnectedMapContainer as MapContainer } from './MapContainer';
 import Popup from './popup';
 
@@ -40,9 +41,9 @@ describe('screens/map/MapContainer', () => {
 
     it('are rendered at correct positions', () => {
       const positions = [
-        { id: '1', latitude: 0, longitude: 1 },
-        { id: '2', latitude: 2, longitude: 3 },
-        { id: '3', latitude: 4, longitude: 5 },
+        { id: '1', latitude: 0, longitude: 1, image: 'ta' },
+        { id: '2', latitude: 2, longitude: 3, image: 'ta' },
+        { id: '3', latitude: 4, longitude: 5, image: 'ta' },
       ];
       const markers = getWrapper({ markers: positions }).find(Marker);
       expect(markers).to.have.length(3);
@@ -51,8 +52,20 @@ describe('screens/map/MapContainer', () => {
       expect(markers.at(2).prop('position')).to.deep.equal([4, 5]);
     });
 
+    it('are rendered with correct icons', () => {
+      const data = [
+        { id: '1', latitude: 0, longitude: 1, image: 'ta' },
+        { id: '2', latitude: 2, longitude: 3, image: 'avain' },
+        { id: '3', latitude: 4, longitude: 5, image: 'setlementti' },
+      ];
+      const markers = getWrapper({ markers: data }).find(Marker);
+      expect(markers.at(0).prop('icon')).to.equal(icons.ta);
+      expect(markers.at(1).prop('icon')).to.equal(icons.avain);
+      expect(markers.at(2).prop('icon')).to.equal(icons.setlementti);
+    });
+
     it('have popups as children', () => {
-      const markers = [{ id: '32', latitude: 0, longitude: 0 }];
+      const markers = [{ id: '32', latitude: 0, longitude: 0, image: 'ta' }];
       const marker = getWrapper({ markers }).find(Marker);
       const popup = marker.find(Popup);
       expect(popup).to.have.length(1);

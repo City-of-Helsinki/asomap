@@ -25,8 +25,33 @@ describe('screens/map/mapSelector', () => {
         },
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3 },
-        { id: '21', latitude: 0, longitude: 1 },
+        { id: '1', latitude: 2, longitude: 3, image: undefined },
+        { id: '21', latitude: 0, longitude: 1, image: undefined },
+      ]);
+    });
+
+    it('include image', () => {
+      const data = selector(getState({
+        units: {
+          1: createUnit(1, 0, 0, { owner: 'AVAIN Asumisoikeus Oy' }),
+          2: createUnit(2, 0, 0, { owner: 'Asumisoikeusyhdistys Suomen Omakoti' }),
+          3: createUnit(3, 0, 0, { owner: 'Asuntosäätiön Asumisoikeus Oy' }),
+          4: createUnit(4, 0, 0, { owner: 'Helsingin Asumisoikeus Oy' }),
+          5: createUnit(5, 0, 0, { owner: 'Helsingin Seudun Asumisoikeusyhdistys HELAS' }),
+          6: createUnit(6, 0, 0, { owner: 'Kanta-Suomen Asumisoikeusyhdistys' }),
+          7: createUnit(7, 0, 0, { owner: 'Setlementtiasumisoikeus Oy' }),
+          8: createUnit(8, 0, 0, { owner: 'TA-Asumisoikeus Oy' }),
+        },
+      }));
+      expect(data.markers.map(marker => marker.image)).to.deep.equal([
+        'avain',
+        'suomenomakoti',
+        'asuntosaation',
+        'helsingin',
+        'helsingin',
+        'kantasuomen',
+        'setlementti',
+        'ta',
       ]);
     });
 
@@ -39,7 +64,7 @@ describe('screens/map/mapSelector', () => {
         city: 'Espoo',
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3 },
+        { id: '1', latitude: 2, longitude: 3, image: undefined },
       ]);
     });
 
@@ -52,8 +77,8 @@ describe('screens/map/mapSelector', () => {
         city: '',
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3 },
-        { id: '21', latitude: 0, longitude: 1 },
+        { id: '1', latitude: 2, longitude: 3, image: undefined },
+        { id: '21', latitude: 0, longitude: 1, image: undefined },
       ]);
     });
 
@@ -67,8 +92,8 @@ describe('screens/map/mapSelector', () => {
         postalCodes: ['00200', '00300'],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3 },
-        { id: '3', latitude: 2, longitude: 3 },
+        { id: '1', latitude: 2, longitude: 3, image: undefined },
+        { id: '3', latitude: 2, longitude: 3, image: undefined },
       ]);
     });
 
@@ -82,9 +107,9 @@ describe('screens/map/mapSelector', () => {
         postalCodes: [],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3 },
-        { id: '21', latitude: 0, longitude: 1 },
-        { id: '3', latitude: 2, longitude: 3 },
+        { id: '1', latitude: 2, longitude: 3, image: undefined },
+        { id: '21', latitude: 0, longitude: 1, image: undefined },
+        { id: '3', latitude: 2, longitude: 3, image: undefined },
       ]);
     });
 
@@ -99,7 +124,7 @@ describe('screens/map/mapSelector', () => {
         postalCodes: ['02100', '00100'],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3 },
+        { id: '1', latitude: 2, longitude: 3, image: undefined },
       ]);
     });
 
@@ -113,8 +138,8 @@ describe('screens/map/mapSelector', () => {
         owners: ['Owner A', 'Owner C'],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 0, longitude: 1 },
-        { id: '3', latitude: 0, longitude: 1 },
+        { id: '1', latitude: 0, longitude: 1, image: undefined },
+        { id: '3', latitude: 0, longitude: 1, image: undefined },
       ]);
     });
 
@@ -128,9 +153,9 @@ describe('screens/map/mapSelector', () => {
         owners: [],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 0, longitude: 1 },
-        { id: '2', latitude: 0, longitude: 1 },
-        { id: '3', latitude: 0, longitude: 1 },
+        { id: '1', latitude: 0, longitude: 1, image: undefined },
+        { id: '2', latitude: 0, longitude: 1, image: undefined },
+        { id: '3', latitude: 0, longitude: 1, image: undefined },
       ]);
     });
   });

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Map, Marker, TileLayer, ZoomControl } from 'react-leaflet';
 
+import icons from './icons';
 import selector from './mapSelector';
 import Popup from './popup';
 
@@ -54,7 +55,11 @@ export class UnconnectedMapContainer extends React.Component {
         />
         <ZoomControl position="bottomright" />
         {this.props.markers.map(marker => (
-          <Marker key={marker.id} position={[marker.latitude, marker.longitude]}>
+          <Marker
+            icon={icons[marker.image]}
+            key={marker.id}
+            position={[marker.latitude, marker.longitude]}
+          >
             <Popup id={marker.id} />
           </Marker>
         ))}
@@ -69,6 +74,7 @@ UnconnectedMapContainer.propTypes = {
     id: PropTypes.string.isRequired,
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
   })),
   boundaries: PropTypes.shape({
     maxLatitude: PropTypes.number,
