@@ -7,7 +7,7 @@ const images = {
   'Asumisoikeusyhdistys Suomen Omakoti': 'suomenomakoti',
   'Asuntosäätiön Asumisoikeus Oy': 'asuntosaation',
   'Helsingin Asumisoikeus Oy': 'helsingin',
-  'Helsingin Seudun Asumisoikeusyhdistys HELAS': 'helsingin',
+  'Helsingin Seudun Asumisoikeusyhdistys HELAS': 'helas',
   'Kanta-Suomen Asumisoikeusyhdistys': 'kantasuomen',
   'Setlementtiasumisoikeus Oy': 'setlementti',
   'TA-Asumisoikeus Oy': 'ta',

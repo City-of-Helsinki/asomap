@@ -48,7 +48,7 @@ describe('screens/map/mapSelector', () => {
         'suomenomakoti',
         'asuntosaation',
         'helsingin',
-        'helsingin',
+        'helas',
         'kantasuomen',
         'setlementti',
         'ta',
