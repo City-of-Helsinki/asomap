@@ -1,3 +1,4 @@
+import values from 'lodash/values';
 import pickBy from 'lodash/pickBy';
 
 import { createSelector, createStructuredSelector } from 'reselect';
@@ -29,11 +30,33 @@ function postalCodeFilterSelector(state) {
   return state.filters.postalCodes;
 }
 
+const cityUnitsSelector = createSelector(
+  cityFilterSelector,
+  unitsSelector,
+  (city, units) => (
+    city === '' ?
+      values(units) :
+      values(units).filter(unit => unit.city === city)
+  )
+);
+
+const cityUnitPostalCodesSelector = createSelector(
+  cityUnitsSelector,
+  units => units.map(unit => unit.addressZip)
+);
+
+const filteredPostalCodeFilterSelector = createSelector(
+  postalCodeFilterSelector,
+  cityUnitPostalCodesSelector,
+  (selectedPostalCodes, cityPostalCodes) =>
+    selectedPostalCodes.filter(code => cityPostalCodes.indexOf(code) !== -1)
+);
+
 const filteredUnitsSelector = createSelector(
   unitsSelector,
   cityFilterSelector,
   ownerFilterSelector,
-  postalCodeFilterSelector,
+  filteredPostalCodeFilterSelector,
   (units, city, owners, postalCodes) => pickBy(
     units,
     unit => (

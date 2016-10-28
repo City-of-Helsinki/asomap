@@ -29,7 +29,13 @@ const postalCodesSelector = createSelector(
   units => sortedUniq(units.map(unit => unit.addressZip).sort())
 );
 
+const filteredFilterSelector = createSelector(
+  filterSelector,
+  postalCodesSelector,
+  (filter, postalCodes) => filter.filter(value => postalCodes.indexOf(value) !== -1)
+);
+
 export default createStructuredSelector({
   postalCodes: postalCodesSelector,
-  selectedPostalCodes: filterSelector,
+  selectedPostalCodes: filteredFilterSelector,
 });
