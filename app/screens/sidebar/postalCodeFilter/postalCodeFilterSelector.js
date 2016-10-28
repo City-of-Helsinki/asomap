@@ -10,9 +10,23 @@ function filterSelector(state) {
   return state.filters.postalCodes;
 }
 
-const postalCodesSelector = createSelector(
+function cityFilterSelector(state) {
+  return state.filters.city;
+}
+
+const cityUnitsSelector = createSelector(
+  cityFilterSelector,
   unitsSelector,
-  units => sortedUniq(values(units).map(unit => unit.addressZip).sort())
+  (city, units) => (
+    city === '' ?
+      values(units) :
+      values(units).filter(unit => unit.city === city)
+  )
+);
+
+const postalCodesSelector = createSelector(
+  cityUnitsSelector,
+  units => sortedUniq(units.map(unit => unit.addressZip).sort())
 );
 
 export default createStructuredSelector({

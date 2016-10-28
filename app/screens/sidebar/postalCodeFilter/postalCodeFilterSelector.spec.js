@@ -2,8 +2,8 @@ import { expect } from 'chai';
 
 import selector from './postalCodeFilterSelector';
 
-function getState({ units = {}, filter = [] } = {}) {
-  return { data: { units }, filters: { postalCodes: filter } };
+function getState({ units = {}, filter = [], city = '' } = {}) {
+  return { data: { units }, filters: { postalCodes: filter, city } };
 }
 
 describe('screens/sidebar/postalCodeFilter/postalCodeSelector', () => {
@@ -29,6 +29,18 @@ describe('screens/sidebar/postalCodeFilter/postalCodeSelector', () => {
     it('are selected', () => {
       const actual = selector(getState({ units: { 1: { addressZip: '00100' } } }));
       expect(actual.postalCodes).to.deep.equal(['00100']);
+    });
+
+    it('are filtered by city', () => {
+      const actual = selector(getState({
+        units: {
+          1: { addressZip: '00100', city: 'Helsinki' },
+          2: { addressZip: '00120', city: 'Helsinki' },
+          3: { addressZip: '02100', city: 'Espoo' },
+        },
+        city: 'Helsinki',
+      }));
+      expect(actual.postalCodes).to.deep.equal(['00100', '00120']);
     });
 
     it('are sorted', () => {
