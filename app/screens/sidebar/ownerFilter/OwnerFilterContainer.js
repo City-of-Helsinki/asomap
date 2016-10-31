@@ -11,7 +11,10 @@ export function UnconnectedOwnerFilterContainer(props) {
       <h5>Omistaja</h5>
       <Select
         onChange={props.onSelect}
-        options={props.owners.map(owner => ({ label: owner, value: owner }))}
+        options={props.owners.map(owner => ({
+          label: `${owner.name} (${owner.unitCount})`,
+          value: owner.name,
+        }))}
         value={props.selectedOwners}
       />
     </div>
@@ -20,7 +23,10 @@ export function UnconnectedOwnerFilterContainer(props) {
 
 UnconnectedOwnerFilterContainer.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  owners: PropTypes.arrayOf(PropTypes.string).isRequired,
+  owners: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    unitCount: PropTypes.number.isRequired,
+  })).isRequired,
   selectedOwners: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
