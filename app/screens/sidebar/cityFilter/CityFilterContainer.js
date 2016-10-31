@@ -11,7 +11,7 @@ export function UnconnectedCityFilterContainer(props) {
       <select value={props.selected} onChange={props.onSelect}>
         <option value="">Kaikki kaupungit</option>
         {props.cities.map(city => (
-          <option key={city} value={city}>{city}</option>
+          <option key={city.name} value={city.name}>{city.name} ({city.unitCount})</option>
         ))}
       </select>
     </div>
@@ -19,7 +19,10 @@ export function UnconnectedCityFilterContainer(props) {
 }
 
 UnconnectedCityFilterContainer.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    unitCount: PropTypes.number.isRequired,
+  })).isRequired,
   onSelect: PropTypes.func.isRequired,
   selected: PropTypes.string.isRequired,
 };

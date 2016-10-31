@@ -2,6 +2,7 @@ import pickBy from 'lodash/pickBy';
 
 import { createSelector, createStructuredSelector } from 'reselect';
 
+import { unitMatchesFilters } from 'screens/utils';
 import selectors from 'state/selectors';
 
 const images = {
@@ -22,11 +23,7 @@ const filteredUnitsSelector = createSelector(
   selectors.postalCodeFilterSelector,
   (units, city, owners, postalCodes) => pickBy(
     units,
-    unit => (
-      (city === '' || unit.city === city) &&
-      (owners.length === 0 || owners.indexOf(unit.owner) !== -1) &&
-      (postalCodes.length === 0 || postalCodes.indexOf(unit.addressZip) !== -1)
-    )
+    unit => unitMatchesFilters(unit, city, owners, postalCodes)
   )
 );
 

@@ -2,15 +2,15 @@ import { expect } from 'chai';
 
 import selector from './cityFilterSelector';
 
-function getState({ units = {}, city = '' }) {
-  return { data: { units }, filters: { city } };
+function getState({ units = {}, city = '', owners = [], postalCodes = [] }) {
+  return { data: { units }, filters: { city, owners, postalCodes } };
 }
 
 describe('screens/sidebar/cityFilter/cityFilterSelector', () => {
   describe('cities', () => {
     it('are selected', () => {
       const actual = selector(getState({ units: { 1: { city: 'Helsinki' } } }));
-      expect(actual.cities).to.deep.equal(['Helsinki']);
+      expect(actual.cities).to.deep.equal([{ name: 'Helsinki', unitCount: 1 }]);
     });
 
     it('are selected in alphabetical order', () => {
@@ -21,10 +21,14 @@ describe('screens/sidebar/cityFilter/cityFilterSelector', () => {
           3: { city: 'Helsinki' },
         },
       }));
-      expect(actual.cities).to.deep.equal(['Espoo', 'Helsinki', 'Vantaa']);
+      expect(actual.cities).to.deep.equal([
+        { name: 'Espoo', unitCount: 1 },
+        { name: 'Helsinki', unitCount: 1 },
+        { name: 'Vantaa', unitCount: 1 },
+      ]);
     });
 
-    it('do not contain duplicates', () => {
+    it('counts units', () => {
       const actual = selector(getState({
         units: {
           1: { city: 'Espoo' },
@@ -33,7 +37,27 @@ describe('screens/sidebar/cityFilter/cityFilterSelector', () => {
           4: { city: 'Espoo' },
         },
       }));
-      expect(actual.cities).to.deep.equal(['Espoo', 'Helsinki']);
+      expect(actual.cities).to.deep.equal([
+        { name: 'Espoo', unitCount: 3 },
+        { name: 'Helsinki', unitCount: 1 },
+      ]);
+    });
+
+    it('only counts units matching other filters', () => {
+      const actual = selector(getState({
+        units: {
+          1: { city: 'Espoo', owner: 'A', addressZip: '02100' },
+          2: { city: 'Espoo', owner: 'B', addressZip: '02100' },
+          3: { city: 'Helsinki', owner: 'A', addressZip: '00100' },
+          4: { city: 'Espoo', owner: 'A', addressZip: '02200' },
+        },
+        owners: ['A'],
+        postalCodes: ['00100', '02100'],
+      }));
+      expect(actual.cities).to.deep.equal([
+        { name: 'Espoo', unitCount: 1 },
+        { name: 'Helsinki', unitCount: 1 },
+      ]);
     });
   });
 

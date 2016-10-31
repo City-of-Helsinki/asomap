@@ -6,7 +6,11 @@ import { UnconnectedCityFilterContainer as CityFilterContainer } from './CityFil
 
 function getWrapper(props) {
   const defaults = {
-    cities: ['Espoo', 'Helsinki', 'Vantaa'],
+    cities: [
+      { name: 'Espoo', unitCount: 0 },
+      { name: 'Helsinki', unitCount: 1 },
+      { name: 'Vantaa', unitCount: 2 },
+    ],
     onSelect: () => null,
     selected: '',
   };
@@ -50,8 +54,8 @@ describe('screens/sidebar/cityFilter/CityFilterContainer', () => {
     const options = getOptions();
     expect(options).to.have.length(4);
     testOption(options.at(0), 'Kaikki kaupungit', '');
-    testOption(options.at(1), 'Espoo', 'Espoo');
-    testOption(options.at(2), 'Helsinki', 'Helsinki');
-    testOption(options.at(3), 'Vantaa', 'Vantaa');
+    testOption(options.at(1), 'Espoo (0)', 'Espoo');
+    testOption(options.at(2), 'Helsinki (1)', 'Helsinki');
+    testOption(options.at(3), 'Vantaa (2)', 'Vantaa');
   });
 });
