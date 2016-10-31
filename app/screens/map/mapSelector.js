@@ -1,7 +1,8 @@
-import values from 'lodash/values';
 import pickBy from 'lodash/pickBy';
 
 import { createSelector, createStructuredSelector } from 'reselect';
+
+import selectors from 'state/selectors';
 
 const images = {
   'AVAIN Asumisoikeus Oy': 'avain',
@@ -14,49 +15,11 @@ const images = {
   'TA-Asumisoikeus Oy': 'ta',
 };
 
-function unitsSelector(state) {
-  return state.data.units;
-}
-
-function cityFilterSelector(state) {
-  return state.filters.city;
-}
-
-function ownerFilterSelector(state) {
-  return state.filters.owners;
-}
-
-function postalCodeFilterSelector(state) {
-  return state.filters.postalCodes;
-}
-
-const cityUnitsSelector = createSelector(
-  cityFilterSelector,
-  unitsSelector,
-  (city, units) => (
-    city === '' ?
-      values(units) :
-      values(units).filter(unit => unit.city === city)
-  )
-);
-
-const cityUnitPostalCodesSelector = createSelector(
-  cityUnitsSelector,
-  units => units.map(unit => unit.addressZip)
-);
-
-const filteredPostalCodeFilterSelector = createSelector(
-  postalCodeFilterSelector,
-  cityUnitPostalCodesSelector,
-  (selectedPostalCodes, cityPostalCodes) =>
-    selectedPostalCodes.filter(code => cityPostalCodes.indexOf(code) !== -1)
-);
-
 const filteredUnitsSelector = createSelector(
-  unitsSelector,
-  cityFilterSelector,
-  ownerFilterSelector,
-  filteredPostalCodeFilterSelector,
+  selectors.unitsSelector,
+  selectors.cityFilterSelector,
+  selectors.ownerFilterSelector,
+  selectors.filteredPostalCodeFilterSelector,
   (units, city, owners, postalCodes) => pickBy(
     units,
     unit => (
@@ -111,13 +74,8 @@ const boundariesSelector = createSelector(
   }
 );
 
-const isLoadedSelector = createSelector(
-  unitsSelector,
-  units => Object.keys(units).length > 0
-);
-
 export default createStructuredSelector({
-  isLoaded: isLoadedSelector,
+  isLoaded: selectors.isLoadedSelector,
   markers: markersSelector,
   boundaries: boundariesSelector,
 });

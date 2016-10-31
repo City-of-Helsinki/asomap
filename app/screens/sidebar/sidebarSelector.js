@@ -1,8 +1,6 @@
 import { createStructuredSelector } from 'reselect';
 
-function isLoadedSelector(state) {
-  return Object.keys(state.data.units).length > 0;
-}
+import selectors from 'state/selectors';
 
 function isCollapsedSelector(state) {
   return state.ui.sidebar.collapsed;
@@ -10,5 +8,5 @@ function isCollapsedSelector(state) {
 
 export default createStructuredSelector({
   isCollapsed: isCollapsedSelector,
-  isLoaded: isLoadedSelector,
+  isLoaded: selectors.isLoadedSelector,
 });
