@@ -39,18 +39,10 @@ const cityUnitPostalCodesSelector = createSelector(
   units => sortedUniq(units.map(unit => unit.addressZip).sort())
 );
 
-const filteredPostalCodeFilterSelector = createSelector(
-  postalCodeFilterSelector,
-  cityUnitPostalCodesSelector,
-  (selectedPostalCodes, validPostalCodes) =>
-    selectedPostalCodes.filter(code => validPostalCodes.indexOf(code) !== -1)
-);
-
 export default {
   cityFilterSelector,
   cityUnitPostalCodesSelector,
   cityUnitsSelector,
-  filteredPostalCodeFilterSelector,
   isLoadedSelector,
   ownerFilterSelector,
   postalCodeFilterSelector,

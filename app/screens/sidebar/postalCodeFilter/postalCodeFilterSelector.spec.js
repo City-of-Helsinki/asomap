@@ -24,19 +24,6 @@ describe('screens/sidebar/postalCodeFilter/postalCodeSelector', () => {
       }));
       expect(actual.selectedPostalCodes).to.deep.equal(filter);
     });
-
-    it('ignores values not in selected city', () => {
-      const actual = selector(getState({
-        units: {
-          1: { addressZip: '00100', city: 'Helsinki' },
-          2: { addressZip: '00120', city: 'Helsinki' },
-          3: { addressZip: '02100', city: 'Espoo' },
-        },
-        city: 'Helsinki',
-        filter: ['00100', '02100'],
-      }));
-      expect(actual.selectedPostalCodes).to.deep.equal(['00100']);
-    });
   });
 
   describe('postal codes', () => {

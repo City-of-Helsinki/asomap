@@ -4,5 +4,5 @@ import selectors from 'state/selectors';
 
 export default createStructuredSelector({
   postalCodes: selectors.cityUnitPostalCodesSelector,
-  selectedPostalCodes: selectors.filteredPostalCodeFilterSelector,
+  selectedPostalCodes: selectors.postalCodeFilterSelector,
 });

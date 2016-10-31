@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 
-import actionTypes from 'actions/actionTypes';
 import reducer from './dataReducer';
 
 describe('state/reducers/dataReducer', () => {

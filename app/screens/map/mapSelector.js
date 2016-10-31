@@ -19,7 +19,7 @@ const filteredUnitsSelector = createSelector(
   selectors.unitsSelector,
   selectors.cityFilterSelector,
   selectors.ownerFilterSelector,
-  selectors.filteredPostalCodeFilterSelector,
+  selectors.postalCodeFilterSelector,
   (units, city, owners, postalCodes) => pickBy(
     units,
     unit => (
