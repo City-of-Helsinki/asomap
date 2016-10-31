@@ -128,22 +128,6 @@ describe('screens/map/mapSelector', () => {
       ]);
     });
 
-    it('are only filtered by postal codes that match the selected city', () => {
-      const data = selector(getState({
-        units: {
-          21: createUnit(21, 0, 1, { city: 'Helsinki', addressZip: '00100' }),
-          1: createUnit(1, 2, 3, { city: 'Espoo', addressZip: '02100' }),
-          3: createUnit(3, 2, 3, { city: 'Espoo', addressZip: '02200' }),
-        },
-        city: 'Espoo',
-        postalCodes: ['00100'],
-      }));
-      expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3, image: undefined },
-        { id: '3', latitude: 2, longitude: 3, image: undefined },
-      ]);
-    });
-
     it('are filtered by owner', () => {
       const data = selector(getState({
         units: {
