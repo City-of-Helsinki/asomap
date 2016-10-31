@@ -57,15 +57,124 @@ describe('services/api', () => {
       expect(actual).to.equal(expected);
     });
 
-    it('returns results', (done) => {
-      const expected = { some: 'results' };
-      const response = { json: () => ({ results: expected }) };
+    function testPopulating(result, expected, done) {
+      const response = {
+        json: () => ({
+          results: [
+            Object.assign(
+              {
+                address_zip: '00100',
+                id: '1',
+                location: {
+                  coordinates: [1, 2],
+                },
+                municipality: 'helsinki',
+                name: {
+                  fi: 'Unit name',
+                },
+                street_address: {
+                  fi: 'Unit address',
+                },
+                www_url: {
+                  fi: 'http://www.example.com',
+                },
+              },
+              result
+            ),
+          ],
+        }),
+      };
       const promise = api.getUnits();
       promise.then((actual) => {
-        expect(actual).to.equal(expected);
+        for (const key of Object.keys(expected)) {
+          expect(actual['1'][key]).to.deep.equal(expected[key]);
+        }
         done();
       });
       resolve(response);
+    }
+
+    it('populates streetAddress', (done) => {
+      testPopulating(
+        { street_address: { fi: 'Address' } },
+        { streetAddress: 'Address' },
+        done
+      );
     });
+
+    it('populates addressZip', (done) => {
+      testPopulating(
+        { address_zip: '12345' },
+        { addressZip: '12345' },
+        done
+      );
+    });
+
+    it('populates city', (done) => {
+      testPopulating(
+        { municipality: 'espoo' },
+        { city: 'Espoo' },
+        done
+      );
+    });
+
+    it('populates url', (done) => {
+      testPopulating(
+        { www_url: { fi: 'http://test.example.com' } },
+        { url: 'http://test.example.com' },
+        done
+      );
+    });
+
+    it('populates coordinates', (done) => {
+      testPopulating(
+        { location: { coordinates: [10, 20] } },
+        { coordinates: { longitude: 10, latitude: 20 } },
+        done
+      );
+    });
+
+    it('populates owner and name', (done) => {
+      testPopulating(
+        { name: { fi: 'Owner' }, street_address: { fi: 'Talotie 5' } },
+        { name: 'Talotie 5', owner: 'Owner' },
+        done
+      );
+    });
+
+    it('splits name to owner and name', (done) => {
+      testPopulating(
+        { name: { fi: 'Owner/House' } },
+        { name: 'House', owner: 'Owner' },
+        done
+      );
+    });
+
+    it('splits correctly with multiple slashes', (done) => {
+      testPopulating(
+        { name: { fi: 'Owner/House/Stair' } },
+        { name: 'House/Stair', owner: 'Owner' },
+        done
+      );
+    });
+
+    const tests = [
+      { name: 'AVAIN asumisOIKEUS', expected: 'AVAIN Asumisoikeus Oy' },
+      { name: 'AVAIN ASUMISOIKEUS OY', expected: 'AVAIN Asumisoikeus Oy' },
+      { name: 'asuntoSÄÄTIÖN asumisoikeus OY', expected: 'Asuntosäätiön Asumisoikeus Oy' },
+      { name: 'helsingin seudun asumisoikeusyhdistys',
+        expected: 'Helsingin Seudun Asumisoikeusyhdistys HELAS' },
+      { name: 'Helsingin Seudun Asumisoikeusyhdistys helas',
+        expected: 'Helsingin Seudun Asumisoikeusyhdistys HELAS' },
+      { name: 'TA-Asumisoikeus', expected: 'TA-Asumisoikeus Oy' },
+      { name: 'TA-Asumisoikeus OY', expected: 'TA-Asumisoikeus Oy' },
+    ];
+    tests.map(test => it(`normalizes owner "${test.name}"`, (done) => {
+      testPopulating(
+        { name: { fi: test.name } },
+        { owner: test.expected, name: 'Unit address' },
+        done
+      );
+    }));
   });
 });
