@@ -21,11 +21,16 @@ describe('screens/sidebar/ownerFilter/OwnerFilterContainer', () => {
   });
 
   it('renders option for owners', () => {
-    const select = getWrapper({ owners: ['A', 'B', 'C'] }).find(Select);
+    const owners = [
+      { name: 'A', unitCount: 0 },
+      { name: 'B', unitCount: 1 },
+      { name: 'C', unitCount: 2 },
+    ];
+    const select = getWrapper({ owners }).find(Select);
     expect(select.prop('options')).to.deep.equal([
-      { label: 'A', value: 'A' },
-      { label: 'B', value: 'B' },
-      { label: 'C', value: 'C' },
+      { label: 'A (0)', value: 'A' },
+      { label: 'B (1)', value: 'B' },
+      { label: 'C (2)', value: 'C' },
     ]);
   });
 
