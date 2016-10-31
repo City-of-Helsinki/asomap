@@ -1,17 +1,15 @@
 import { createSelector } from 'reselect';
 
+import selectors from 'state/selectors';
+
 export default function createPopupSelector() {
   function idSelector(state, props) {
     return props.id;
   }
 
-  function unitsSelector(state) {
-    return state.data.units;
-  }
-
   const unitSelector = createSelector(
     idSelector,
-    unitsSelector,
+    selectors.unitsSelector,
     (id, units) => units[id]
   );
 
