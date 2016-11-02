@@ -25,12 +25,12 @@ describe('screens/map/mapSelector', () => {
         },
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3, image: undefined },
-        { id: '21', latitude: 0, longitude: 1, image: undefined },
+        { id: '1', latitude: 2, longitude: 3, owner: 'Owner' },
+        { id: '21', latitude: 0, longitude: 1, owner: 'Owner' },
       ]);
     });
 
-    it('include image', () => {
+    it('include owner', () => {
       const data = selector(getState({
         units: {
           1: createUnit(1, 0, 0, { owner: 'AVAIN Asumisoikeus Oy' }),
@@ -38,20 +38,14 @@ describe('screens/map/mapSelector', () => {
           3: createUnit(3, 0, 0, { owner: 'Asuntosäätiön Asumisoikeus Oy' }),
           4: createUnit(4, 0, 0, { owner: 'Helsingin Asumisoikeus Oy' }),
           5: createUnit(5, 0, 0, { owner: 'Helsingin Seudun Asumisoikeusyhdistys HELAS' }),
-          6: createUnit(6, 0, 0, { owner: 'Kanta-Suomen Asumisoikeusyhdistys' }),
-          7: createUnit(7, 0, 0, { owner: 'Setlementtiasumisoikeus Oy' }),
-          8: createUnit(8, 0, 0, { owner: 'TA-Asumisoikeus Oy' }),
         },
       }));
-      expect(data.markers.map(marker => marker.image)).to.deep.equal([
-        'avain',
-        'suomenomakoti',
-        'asuntosaation',
-        'helsingin',
-        'helas',
-        'kantasuomen',
-        'setlementti',
-        'ta',
+      expect(data.markers.map(marker => marker.owner)).to.deep.equal([
+        'AVAIN Asumisoikeus Oy',
+        'Asumisoikeusyhdistys Suomen Omakoti',
+        'Asuntosäätiön Asumisoikeus Oy',
+        'Helsingin Asumisoikeus Oy',
+        'Helsingin Seudun Asumisoikeusyhdistys HELAS',
       ]);
     });
 
@@ -64,7 +58,7 @@ describe('screens/map/mapSelector', () => {
         city: 'Espoo',
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3, image: undefined },
+        { id: '1', latitude: 2, longitude: 3, owner: 'Owner' },
       ]);
     });
 
@@ -77,8 +71,8 @@ describe('screens/map/mapSelector', () => {
         city: '',
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3, image: undefined },
-        { id: '21', latitude: 0, longitude: 1, image: undefined },
+        { id: '1', latitude: 2, longitude: 3, owner: 'Owner' },
+        { id: '21', latitude: 0, longitude: 1, owner: 'Owner' },
       ]);
     });
 
@@ -92,8 +86,8 @@ describe('screens/map/mapSelector', () => {
         postalCodes: ['00200', '00300'],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3, image: undefined },
-        { id: '3', latitude: 2, longitude: 3, image: undefined },
+        { id: '1', latitude: 2, longitude: 3, owner: 'Owner' },
+        { id: '3', latitude: 2, longitude: 3, owner: 'Owner' },
       ]);
     });
 
@@ -107,9 +101,9 @@ describe('screens/map/mapSelector', () => {
         postalCodes: [],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3, image: undefined },
-        { id: '21', latitude: 0, longitude: 1, image: undefined },
-        { id: '3', latitude: 2, longitude: 3, image: undefined },
+        { id: '1', latitude: 2, longitude: 3, owner: 'Owner' },
+        { id: '21', latitude: 0, longitude: 1, owner: 'Owner' },
+        { id: '3', latitude: 2, longitude: 3, owner: 'Owner' },
       ]);
     });
 
@@ -124,7 +118,7 @@ describe('screens/map/mapSelector', () => {
         postalCodes: ['02100', '00100'],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 2, longitude: 3, image: undefined },
+        { id: '1', latitude: 2, longitude: 3, owner: 'Owner' },
       ]);
     });
 
@@ -138,8 +132,8 @@ describe('screens/map/mapSelector', () => {
         owners: ['Owner A', 'Owner C'],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 0, longitude: 1, image: undefined },
-        { id: '3', latitude: 0, longitude: 1, image: undefined },
+        { id: '1', latitude: 0, longitude: 1, owner: 'Owner A' },
+        { id: '3', latitude: 0, longitude: 1, owner: 'Owner C' },
       ]);
     });
 
@@ -153,9 +147,9 @@ describe('screens/map/mapSelector', () => {
         owners: [],
       }));
       expect(data.markers).to.deep.equal([
-        { id: '1', latitude: 0, longitude: 1, image: undefined },
-        { id: '2', latitude: 0, longitude: 1, image: undefined },
-        { id: '3', latitude: 0, longitude: 1, image: undefined },
+        { id: '1', latitude: 0, longitude: 1, owner: 'Owner A' },
+        { id: '2', latitude: 0, longitude: 1, owner: 'Owner B' },
+        { id: '3', latitude: 0, longitude: 1, owner: 'Owner C' },
       ]);
     });
   });

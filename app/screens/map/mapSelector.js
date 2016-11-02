@@ -5,17 +5,6 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import { unitMatchesFilters } from 'screens/utils';
 import selectors from 'state/selectors';
 
-const images = {
-  'AVAIN Asumisoikeus Oy': 'avain',
-  'Asumisoikeusyhdistys Suomen Omakoti': 'suomenomakoti',
-  'Asuntosäätiön Asumisoikeus Oy': 'asuntosaation',
-  'Helsingin Asumisoikeus Oy': 'helsingin',
-  'Helsingin Seudun Asumisoikeusyhdistys HELAS': 'helas',
-  'Kanta-Suomen Asumisoikeusyhdistys': 'kantasuomen',
-  'Setlementtiasumisoikeus Oy': 'setlementti',
-  'TA-Asumisoikeus Oy': 'ta',
-};
-
 const filteredUnitsSelector = createSelector(
   selectors.unitsSelector,
   selectors.cityFilterSelector,
@@ -35,7 +24,7 @@ const markersSelector = createSelector(
       id,
       latitude: units[id].coordinates.latitude,
       longitude: units[id].coordinates.longitude,
-      image: images[units[id].owner],
+      owner: units[id].owner,
     }));
   }
 );

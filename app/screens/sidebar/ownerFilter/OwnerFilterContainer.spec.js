@@ -27,11 +27,14 @@ describe('screens/sidebar/ownerFilter/OwnerFilterContainer', () => {
       { name: 'C', unitCount: 2 },
     ];
     const select = getWrapper({ owners }).find(Select);
-    expect(select.prop('options')).to.deep.equal([
-      { label: 'A (0)', value: 'A' },
-      { label: 'B (1)', value: 'B' },
-      { label: 'C (2)', value: 'C' },
-    ]);
+    const options = select.prop('options');
+    expect(options).to.have.length(3);
+    expect(options[0].label).to.equal('A (0)');
+    expect(options[0].value).to.equal('A');
+    expect(options[1].label).to.equal('B (1)');
+    expect(options[1].value).to.equal('B');
+    expect(options[2].label).to.equal('C (2)');
+    expect(options[2].value).to.equal('C');
   });
 
   it('binds onSelect to Select.onChange', () => {

@@ -1,6 +1,13 @@
 import React, { PropTypes } from 'react';
 import ReactSelect from 'react-select';
 
+function renderLabel(option) {
+  if (option.image) {
+    return <span>{option.image} {option.label}</span>;
+  }
+  return option.label;
+}
+
 class Select extends React.Component {
   constructor() {
     super();
@@ -28,9 +35,11 @@ class Select extends React.Component {
           multi
           noResultsText="Ei tuloksia"
           onChange={this.handleChange}
+          optionRenderer={renderLabel}
           options={this.props.options}
           placeholder="Valitse..."
           value={this.props.value}
+          valueRenderer={renderLabel}
         />
         <select
           className="select-mobile"
@@ -50,6 +59,7 @@ class Select extends React.Component {
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
+    image: PropTypes.node,
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   })).isRequired,
