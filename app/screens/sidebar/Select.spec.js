@@ -35,6 +35,27 @@ describe('screens/sidebar/Select', () => {
     expect(optionElements.at(0).text()).to.equal('A');
   });
 
+  describe('renderLabel', () => {
+    let renderLabel;
+
+    before(() => {
+      const select = getWrapper().find(ReactSelect);
+      renderLabel = select.prop('optionRenderer');
+    });
+
+    it('renders option.label if no image', () => {
+      const option = { label: 'Some label' };
+      const actual = renderLabel(option);
+      expect(actual).to.equal(option.label);
+    });
+
+    it('renders image and label if image given', () => {
+      const option = { image: <img alt="" src="test" />, label: 'Some label' };
+      const actual = shallow(renderLabel(option));
+      expect(actual.equals(<span>{option.image} {option.label}</span>)).to.be.true;
+    });
+  });
+
   describe('handleChange', () => {
     it('given array, calls props.onChange', () => {
       const onChange = simple.mock();
