@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Map, Marker, TileLayer, ZoomControl } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 
-import { getOwnerMarkerIcon } from 'screens/utils';
 import selector from './mapSelector';
-import Popup from './popup';
+import Markers from './Markers';
 
 const defaultPosition = [60.372465778991284, 24.818115234375004];
 const defaultZoom = 10;
@@ -64,15 +63,7 @@ export class UnconnectedMapContainer extends React.Component {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <ZoomControl position="bottomright" />
-        {this.props.markers.map(marker => (
-          <Marker
-            icon={getOwnerMarkerIcon(marker.owner)}
-            key={marker.id}
-            position={[marker.latitude, marker.longitude]}
-          >
-            <Popup id={marker.id} />
-          </Marker>
-        ))}
+        <Markers markers={this.props.markers} />
       </Map>
     );
   }
