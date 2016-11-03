@@ -13,7 +13,7 @@ describe('screens/map/popup/PopupContainer', () => {
       name: 'Unit name',
       owner: 'Unit owner',
       streetAddress: 'Unit address',
-      url: 'http://owner.example.com',
+      url: 'http://owner.example.com/',
     };
     return shallow(<PopupContainer {...defaults} {...props} />);
   }
@@ -58,7 +58,14 @@ describe('screens/map/popup/PopupContainer', () => {
     expect(url).to.have.length(1);
     const link = url.find('a');
     expect(link).to.have.length(1);
-    expect(link.prop('href')).to.equal('http://owner.example.com');
-    expect(url.text()).to.equal('WWW-sivu');
+    expect(link.prop('href')).to.equal('http://owner.example.com/');
+    expect(url.text()).to.equal('owner.example.com');
+  });
+
+  it('renders url with path', () => {
+    const url = getWrapper({ url: 'https://example.com/path/' }).find('.popup-url');
+    const link = url.find('a');
+    expect(link.prop('href')).to.equal('https://example.com/path/');
+    expect(url.text()).to.equal('example.com/path/');
   });
 });
