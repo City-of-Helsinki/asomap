@@ -4,6 +4,16 @@ import { connect } from 'react-redux';
 
 import selector from './popupSelector';
 
+function getShowableUrl(url) {
+  return url
+    // http://example.com/ -> example.com/
+    // https://example.com/ -> example.com/
+    .replace(/^https?:\/\//, '')
+    // example.com/ -> example.com
+    // example.com/path/ -> example.com/path/
+    .replace(/^([^\/]+)\/$/, '$1');
+}
+
 export function UnconnectedPopupContainer(props) {
   return (
     <Popup>
@@ -16,7 +26,7 @@ export function UnconnectedPopupContainer(props) {
             <span className="popup-postal-code">{props.addressZip}</span>
             <span className="popup-city">{props.city}</span>
           </div>
-          <div className="popup-url"><a href={props.url}>WWW-sivu</a></div>
+          <div className="popup-url"><a href={props.url}>{getShowableUrl(props.url)}</a></div>
         </div>
       </div>
     </Popup>
