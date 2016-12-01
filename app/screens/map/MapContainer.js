@@ -59,7 +59,7 @@ export class UnconnectedMapContainer extends React.Component {
         ref={this.onMapRef}
       >
         <TileLayer
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+          url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <ZoomControl position="bottomright" />
