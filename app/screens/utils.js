@@ -36,6 +36,8 @@ const ownerImages = {
   ta2x,
 };
 
+const unknownOwnerImage = suomenomakoti;
+
 const ownerMap = {
   'AVAIN Asumisoikeus Oy': 'avain',
   'Asumisoikeusyhdistys Suomen Omakoti': 'suomenomakoti',
@@ -74,12 +76,14 @@ const ownerMarkerIcons = {
   ta: createIcon('ta'),
 };
 
+const unknownOwnerMarker = createIcon('suomenomakoti');
+
 export function getOwnerImage(owner) {
-  return ownerImages[ownerMap[owner]];
+  return ownerImages[ownerMap[owner]] || unknownOwnerImage;
 }
 
 export function getOwnerMarkerIcon(owner) {
-  return ownerMarkerIcons[ownerMap[owner]];
+  return ownerMarkerIcons[ownerMap[owner]] || unknownOwnerMarker;
 }
 
 export function unitMatchesFilters(unit, city, owners, postalCodes) {
