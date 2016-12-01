@@ -114,9 +114,15 @@ http {
       root dist;
       try_files $uri /index.html;
 
-      # Acme challenge for let's encrypt
-      location /.well-known/acme-challenge/<%= ENV["ACME_TOKEN"] %> {
-        return 200 <%= ENV["ACME_KEY"] %>;
+      # Acme challenges for let's encrypt
+
+      location /.well-known/acme-challenge/<%= ENV["ACME_TOKEN_1"] %> {
+        return 200 <%= ENV["ACME_KEY_1"] %>;
+        add_header Content-Type text/plain;
+      }
+
+      location /.well-known/acme-challenge/<%= ENV["ACME_TOKEN_2"] %> {
+        return 200 <%= ENV["ACME_KEY_2"] %>;
         add_header Content-Type text/plain;
       }
 
