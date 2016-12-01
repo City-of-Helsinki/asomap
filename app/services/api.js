@@ -1,4 +1,5 @@
 import capitalize from 'lodash/capitalize';
+import getValue from 'lodash/get';
 import keyBy from 'lodash/keyBy';
 import queryString from 'query-string';
 
@@ -28,7 +29,7 @@ function normalizeOwner(owner) {
 }
 
 function getUnitOwnerAndName(data) {
-  const dataName = data.name.fi;
+  const dataName = getValue(data, 'name.fi', '');
   const slashIndex = dataName.indexOf('/');
   if (slashIndex !== -1) {
     const owner = normalizeOwner(dataName.substring(0, slashIndex));
@@ -37,21 +38,21 @@ function getUnitOwnerAndName(data) {
   }
   return {
     owner: normalizeOwner(dataName),
-    name: data.street_address.fi,
+    name: getValue(data, 'street_address.fi', ''),
   };
 }
 
 function getUnitData(data) {
   const { owner, name } = getUnitOwnerAndName(data);
-  const [longitude, latitude] = data.location.coordinates;
+  const [longitude, latitude] = data.location ? data.location.coordinates : [];
   return {
     id: data.id,
     name,
     owner,
-    streetAddress: data.street_address.fi,
+    streetAddress: getValue(data, 'street_address.fi', ''),
     addressZip: data.address_zip,
     city: capitalize(data.municipality),
-    url: data.www_url.fi,
+    url: getValue(data, 'www_url.fi', ''),
     coordinates: { longitude, latitude },
   };
 }
@@ -66,7 +67,9 @@ function getUnits() {
       page_size: '1000',
     }
   );
-  return request.then(data => data.results).then(units => keyBy(units.map(getUnitData), 'id'));
+  return request
+    .then(data => data.results)
+    .then(units => keyBy(units.filter(unit => unit.location).map(getUnitData), 'id'));
 }
 
 export default { getUnits };
