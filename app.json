@@ -3,7 +3,20 @@
   "scripts": {
     "postdeploy": "npm run build"
   },
-  "env": {},
+  "env": {
+    "ACME_KEY_1": {
+      "required": true
+    },
+    "ACME_KEY_2": {
+      "required": true
+    },
+    "ACME_TOKEN_1": {
+      "required": true
+    },
+    "ACME_TOKEN_2": {
+      "required": true
+    }
+  },
   "formation": {
     "web": {
       "quantity": 1
