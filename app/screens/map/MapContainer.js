@@ -59,7 +59,7 @@ export class UnconnectedMapContainer extends React.Component {
         ref={this.onMapRef}
       >
         <TileLayer
-          url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://api.mapbox.com/styles/v1/city-of-helsinki/ciwp23aei009n2qqysr3c91a0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2l0eS1vZi1oZWxzaW5raSIsImEiOiJjaXdwMTg1bXowMDBoMnZueHlod2RqbXRyIn0.7FKlCDKY-lDr2BNFbNlQ1w"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <ZoomControl position="bottomright" />
