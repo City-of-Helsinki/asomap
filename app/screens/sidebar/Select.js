@@ -21,7 +21,13 @@ class Select extends React.Component {
       value = argument.map(option => option.value);
     } else {
       // Native select
-      const selected = Array.from(argument.target.selectedOptions);
+      const selected = [];
+      for (let i = 0; i < argument.target.options.length; i += 1) {
+        const option = argument.target.options[i];
+        if (option.selected) {
+          selected.push(option);
+        }
+      }
       value = selected.map(option => option.value);
     }
     this.props.onChange(value);
