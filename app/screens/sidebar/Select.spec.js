@@ -70,13 +70,15 @@ describe('screens/sidebar/Select', () => {
       const instance = getWrapper({ onChange }).instance();
       instance.handleChange({
         target: {
-          selectedOptions: [
-            { label: 'Foo', value: 'bar' },
+          options: [
+            { label: 'Foo', value: 'foo', selected: true },
+            { label: 'Bar', value: 'bar', selected: true },
+            { label: 'Ham', value: 'ham', selected: false },
           ],
         },
       });
       expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args).to.deep.equal([['bar']]);
+      expect(onChange.lastCall.args).to.deep.equal([['foo', 'bar']]);
     });
   });
 });
