@@ -4,18 +4,29 @@ function isMobile() {
   return window.innerWidth <= 768;
 }
 
-const initialState = {
-  sidebar: {
-    collapsed: isMobile(),
-  },
-};
+function getInitialState() {
+  return {
+    sidebar: {
+      collapsed: isMobile(),
+    },
+  };
+}
 
-export default function uiReducer(state = initialState, action) {
+function toggleSidebar(state, collapsed) {
+  return Object.assign({}, state, {
+    sidebar: Object.assign({}, state.sidebar, { collapsed }),
+  });
+}
+
+export default function uiReducer(state = getInitialState(), action) {
   switch (action.type) {
     case actionTypes.TOGGLE_SIDEBAR:
-      return Object.assign({}, state, {
-        sidebar: Object.assign({}, state.sidebar, { collapsed: !state.sidebar.collapsed }),
-      });
+      return toggleSidebar(state, !state.sidebar.collapsed);
+    case actionTypes.CHANGE_CITY_FILTER:
+    case actionTypes.CHANGE_POSTAL_CODE_FILTER:
+    case actionTypes.CHANGE_OWNER_FILTER:
+      if (isMobile()) return toggleSidebar(state, true);
+      return state;
     default:
       return state;
   }
