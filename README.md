@@ -2,6 +2,8 @@ asomap
 ======
 
 [![Circle CI](https://circleci.com/gh/City-of-Helsinki/asomap.svg?style=svg)](https://circleci.com/gh/City-of-Helsinki/asomap)
+[![Build status](https://travis-ci.org/City-of-Helsinki/asomap.svg)](https://travis-ci.org/City-of-Helsinki/asomap)
+[![codecov](https://codecov.io/gh/City-of-Helsinki/asomap/branch/master/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/asomap)
 
 Requirements
 ------------

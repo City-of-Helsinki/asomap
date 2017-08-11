@@ -56,6 +56,7 @@ module.exports = (options) => {
     karmaConfig.coverageReporter = {
       dir: '../coverage',
       reporters: options.coverageReporters || [
+        { type: 'lcov' },
         { type: 'text' },
         { type: 'text-summary' },
       ],
