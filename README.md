@@ -1,7 +1,7 @@
 asomap
 ======
 
-[![Build status](https://travis-ci.org/City-of-Helsinki/asomap.svg)](https://travis-ci.org/City-of-Helsinki/asomap)
+[![Build status](https://travis-ci.org/City-of-Helsinki/asomap.svg?branch=develop)](https://travis-ci.org/City-of-Helsinki/asomap)
 [![codecov](https://codecov.io/gh/City-of-Helsinki/asomap/branch/develop/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/asomap/branch/develop)
 
 Requirements
