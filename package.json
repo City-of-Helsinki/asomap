@@ -51,7 +51,8 @@
     "webpack": "1.13.2",
     "webpack-dev-server": "1.16.2",
     "webpack-merge": "0.14.1",
-    "whatwg-fetch": "1.0.0"
+    "whatwg-fetch": "1.0.0",
+    "snyk": "^1.41.1"
   },
   "devDependencies": {
     "babel-plugin-istanbul": "2.0.1",
@@ -89,6 +90,9 @@
     "test:ci": "./node_modules/karma/bin/karma start config/karma.ci.conf.js --single-run",
     "test:coverage": "npm run lint && ./node_modules/karma/bin/karma start config/karma.coverage.conf.js --single-run",
     "test:watch": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js",
-    "test": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js --single-run"
-  }
+    "test": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js --single-run",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
