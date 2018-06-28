@@ -1,10 +1,9 @@
 dist: trusty
-sudo: false
+sudo: required
 
 language: node_js
 node_js:
-  - "lts/*"
-  - "node"
+  - "6"
 
 cache:
   directories:
