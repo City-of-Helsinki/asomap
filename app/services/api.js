@@ -52,7 +52,7 @@ function getUnitData(data) {
     streetAddress: getValue(data, 'street_address.fi', ''),
     addressZip: data.address_zip,
     city: capitalize(data.municipality),
-    url: getValue(data, 'www_url.fi', ''),
+    url: getValue(data, 'www.fi', ''),
     coordinates: { longitude, latitude },
   };
 }
@@ -61,8 +61,8 @@ function getUnits() {
   const request = get(
     'unit/',
     {
-      service: '25304',
-      only: 'name,location,street_address,address_zip,municipality,www_url',
+      service: '76',
+      only: 'name,location,street_address,address_zip,municipality,www',
       page: '1',
       page_size: '1000',
     }
