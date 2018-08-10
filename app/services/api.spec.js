@@ -49,8 +49,8 @@ describe('services/api', () => {
     it('uses the correct URL', () => {
       const expected =
         'https://mock-api.fi/unit/?' +
-        'only=name%2Clocation%2Cstreet_address%2Caddress_zip%2Cmunicipality%2Cwww_url&' +
-        'page=1&page_size=1000&service=25304';
+        'only=name%2Clocation%2Cstreet_address%2Caddress_zip%2Cmunicipality%2Cwww&' +
+        'page=1&page_size=1000&service=76';
       api.getUnits();
       expect(fetch.callCount).to.equal(1);
       const actual = fetch.lastCall.arg;
@@ -120,7 +120,7 @@ describe('services/api', () => {
 
     it('populates url', (done) => {
       testPopulating(
-        { www_url: { fi: 'http://test.example.com' } },
+        { www: { fi: 'http://test.example.com' } },
         { url: 'http://test.example.com' },
         done
       );
