@@ -45,7 +45,7 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
       SETTINGS: {
-        API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/servicemap/v1/'),
+        API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/servicemap/v2/'),
       },
     }),
     new CleanWebpackPlugin([outputPath], { root: path.resolve(__dirname, '..') }),
