@@ -27,7 +27,7 @@
     "leaflet": "1.0.0",
     "less": "2.7.1",
     "less-loader": "2.2.3",
-    "lodash": "4.16.4",
+    "lodash": "4.17.5",
     "normalizr": "2.2.1",
     "postcss-loader": "0.13.0",
     "query-string": "4.2.3",
